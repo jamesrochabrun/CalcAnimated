@@ -43,7 +43,7 @@ class TipView: UIView {
     
     lazy var totalValueLabel: UILabel  = {
         let label = UILabel()
-        label.text = "$100.00"
+        label.text = "$00.00"
         label.textColor = self.textColor
         label.font  = UIFont.systemFont(ofSize: self.textSizeBig)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,6 @@ class TipView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-       // self.backgroundColor  = .red
         self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tipLabel)
         addSubview(tipValueLabel)
@@ -70,6 +69,8 @@ class TipView: UIView {
         tipValueLabel.sizeToFit()
         tipValueLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         tipValueLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
+//        tipValueLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        tipValueLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         tipLabel.sizeToFit()
         tipLabel.rightAnchor.constraint(equalTo: tipValueLabel.leftAnchor, constant: -8).isActive = true
@@ -78,10 +79,29 @@ class TipView: UIView {
         totalValueLabel.sizeToFit()
         totalValueLabel.rightAnchor.constraint(equalTo: tipValueLabel.rightAnchor).isActive = true
         totalValueLabel.topAnchor.constraint(equalTo: tipLabel.bottomAnchor, constant: 18).isActive = true
+//        totalValueLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        totalValueLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         totalLabel.sizeToFit()
         totalLabel.rightAnchor.constraint(equalTo: totalValueLabel.leftAnchor, constant: -8).isActive = true
         totalLabel.topAnchor.constraint(equalTo: totalValueLabel.topAnchor).isActive = true
     }
+    
+    func updateValuesWith(_ amount:String, percentage:Double) {
+        
+        let bill = Double(amount) ?? 0
+        let tip = bill * percentage / 100
+        let total = bill + tip
+        tipValueLabel.text = String(format: "$%.2f", tip)
+        totalValueLabel.text = String(format: "$%.2f", total)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

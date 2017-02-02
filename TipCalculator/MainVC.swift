@@ -10,12 +10,10 @@ import UIKit
 
 class MainVC: UIViewController {
     
-
-    let textFieldHeight: CGFloat = 70
     var keyBoardHeight: CGFloat = 0.0
     var actionViewHeight: CGFloat = 0.0
     let keyBoardNotification: String = "Knotification"
-    
+
     lazy var gradientView: UIView = {
         let gv = UIView()
         gv.createViewGradientwithFrame(self.view.frame, inView: self.view, topColor: Constants.APPColor.lightBlue, bottomColor: Constants.APPColor.lightGreen)
@@ -41,44 +39,43 @@ class MainVC: UIViewController {
     }()
     
     lazy var actionsView: ActionsView = {
-        let aV = ActionsView()//frame: CGRect(x: 0, y: 300, width: self.view.frame.width, height: 140))
+        let aV = ActionsView()
         aV.backgroundColor = .green
-       // aV.translatesAutoresizingMaskIntoConstraints = false
         return aV
     }()
     
-    let containerCustomtextFieldView: UIView = {
+    let containerTextFieldView: UIView = {
         let view = UIView()
         return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
        // view.addSubview(gradientView)
         view.backgroundColor = .white
-        containerCustomtextFieldView.addSubview(amountTextField)
-        containerCustomtextFieldView.addSubview(textFieldLine)
-        view.addSubview(containerCustomtextFieldView)
+        containerTextFieldView.addSubview(amountTextField)
+        containerTextFieldView.addSubview(textFieldLine)
+        view.addSubview(containerTextFieldView)
         view.addSubview(actionsView)
+        
+        self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: view.frame.maxY)
+        self.containerTextFieldView.transform = CGAffineTransform(translationX: 0.0, y: (view.frame.size.height - Constants.UI.containterTextfieldHeight) / 2)
     }
-    
-    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        var frame = containerCustomtextFieldView.frame
+        var frame = containerTextFieldView.frame
         frame.size.width = view.frame.size.width
-        frame.size.height = 80.0
+        frame.size.height = Constants.UI.containterTextfieldHeight
         frame.origin.x = 0
-        frame.origin.y = ((view.frame.size.height - frame.size.height) / 2) - self.actionViewHeight
-        containerCustomtextFieldView.frame = frame
+        frame.origin.y = (view.frame.size.height - frame.size.height) / 2
+        containerTextFieldView.frame = frame
         
-        amountTextField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
-        amountTextField.widthAnchor.constraint(equalTo: containerCustomtextFieldView.widthAnchor, multiplier: 0.85).isActive = true
-        amountTextField.centerXAnchor.constraint(equalTo: containerCustomtextFieldView.centerXAnchor).isActive = true
-        amountTextField.centerYAnchor.constraint(equalTo: containerCustomtextFieldView.centerYAnchor).isActive = true
+        amountTextField.heightAnchor.constraint(equalToConstant: Constants.UI.textFieldHeight).isActive = true
+        amountTextField.widthAnchor.constraint(equalTo: containerTextFieldView.widthAnchor, multiplier: 0.85).isActive = true
+        amountTextField.centerXAnchor.constraint(equalTo: containerTextFieldView.centerXAnchor).isActive = true
+        amountTextField.centerYAnchor.constraint(equalTo: containerTextFieldView.centerYAnchor).isActive = true
         
         textFieldLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         textFieldLine.widthAnchor.constraint(equalTo: amountTextField.widthAnchor).isActive = true
@@ -86,7 +83,7 @@ class MainVC: UIViewController {
         textFieldLine.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true
         
         frame = actionsView.frame
-        frame.origin.y = view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
+        frame.origin.y = view.frame.maxY
         frame.origin.x = 0
         frame.size.width = view.frame.size.width
         frame.size.height = 140
@@ -101,44 +98,39 @@ extension MainVC {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
     }
     
     func keyBoardWillShow(notification: Notification) {
         
-        if  let dictionary = notification.userInfo {
-            let kbFrame = dictionary[UIKeyboardFrameEndUserInfoKey] as? CGRect
+        if  let dictionary = notification.userInfo, let kbFrame = dictionary[UIKeyboardFrameEndUserInfoKey] as? CGRect  {
             
-            self.keyBoardHeight = (kbFrame?.height)!
+            self.keyBoardHeight = kbFrame.height
             self.actionViewHeight = 140
-            DispatchQueue.main.async {
-                self.view.setNeedsLayout()
-            }
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDuration(1)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view.layoutIfNeeded()
-            UIView.commitAnimations()
+            
+            UIView.animate(withDuration: 3.0, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.3, options: [], animations:{
+                
+                let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
+                self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
+                let containerOriginY = (actionsViewOriginY - self.containerTextFieldView.frame.height) / 2
+                self.containerTextFieldView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+            }, completion: nil)
         }
     }
     
     func keyBoardWillHide() {
         
-        DispatchQueue.main.async {
-            self.view.setNeedsLayout()
-        }
-
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(1)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.commitAnimations()
         self.keyBoardHeight = 0.0
         self.actionViewHeight = 0.0
-        view.layoutIfNeeded()
         
-        print("KB: \(self.keyBoardHeight)")
+        UIView.animate(withDuration: 3.0, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.3, options: [], animations:{
+            
+            let actionsViewOriginY = self.view.frame.maxY
+            self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
+            let containerOriginY = (self.view.frame.height - self.containerTextFieldView.frame.height) / 2
+            self.containerTextFieldView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+        }, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

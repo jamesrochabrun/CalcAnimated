@@ -16,8 +16,13 @@ struct Constants {
         static let orange = "#ff6501"
         static let pink = "fe01a9"
         static let buttonBorderWhite = "#ffffff"
-        
         static let lightBlue = "#33c8db"
         static let lightGreen = "#a7f0e1"
-    }    
+    }
+    
+    
+    struct UI {
+        static let containterTextfieldHeight: CGFloat = 80.0
+        static let textFieldHeight: CGFloat = 70.0
+    }
 }

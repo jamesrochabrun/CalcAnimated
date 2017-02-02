@@ -117,22 +117,11 @@ extension MainVC {
                 self.view.setNeedsLayout()
             }
             UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDuration(0.3)
+            UIView.setAnimationDuration(1)
             UIView.setAnimationBeginsFromCurrentState(true)
             view.layoutIfNeeded()
             UIView.commitAnimations()
         }
-        //
-//        NSDictionary *info = [notification userInfo];
-//        CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-//        _keyBoardHeight = kbSize.height;
-//        
-//        [self.view setNeedsLayout];
-//        [UIView beginAnimations:nil context:nil];
-//        [UIView setAnimationDuration:.3];
-//        [UIView setAnimationBeginsFromCurrentState:TRUE];
-//        [self.view layoutIfNeeded];
-//        [UIView commitAnimations];
     }
     
     func keyBoardWillHide() {
@@ -141,23 +130,13 @@ extension MainVC {
             self.view.setNeedsLayout()
         }
 
-        
         UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDuration(0.3)
+        UIView.setAnimationDuration(1)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.commitAnimations()
         self.keyBoardHeight = 0.0
         self.actionViewHeight = 0.0
         view.layoutIfNeeded()
-        
-        
-//        [self.view setNeedsLayout];
-//        [UIView beginAnimations:nil context:nil];
-//        [UIView setAnimationDuration:.3];
-//        [UIView setAnimationBeginsFromCurrentState:TRUE];
-//        [UIView commitAnimations];
-//        _keyBoardHeight = 0.0f;
-//        [self.view layoutIfNeeded];
         
         print("KB: \(self.keyBoardHeight)")
     }

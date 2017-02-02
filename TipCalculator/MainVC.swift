@@ -46,33 +46,46 @@ class MainVC: UIViewController {
        // aV.translatesAutoresizingMaskIntoConstraints = false
         return aV
     }()
+    
+    let containerCustomtextFieldView: UIView = {
+        let view = UIView()
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
        // view.addSubview(gradientView)
         view.backgroundColor = .white
-        view.addSubview(amountTextField)
-        view.addSubview(textFieldLine)
-        
+        containerCustomtextFieldView.addSubview(amountTextField)
+        containerCustomtextFieldView.addSubview(textFieldLine)
+        view.addSubview(containerCustomtextFieldView)
         view.addSubview(actionsView)
-        
     }
+    
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        var frame = containerCustomtextFieldView.frame
+        frame.size.width = view.frame.size.width
+        frame.size.height = 80.0
+        frame.origin.x = 0
+        frame.origin.y = ((view.frame.size.height - frame.size.height) / 2) - self.actionViewHeight
+        containerCustomtextFieldView.frame = frame
+        
         amountTextField.heightAnchor.constraint(equalToConstant: textFieldHeight).isActive = true
-        amountTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85).isActive = true
-        amountTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        amountTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        amountTextField.widthAnchor.constraint(equalTo: containerCustomtextFieldView.widthAnchor, multiplier: 0.85).isActive = true
+        amountTextField.centerXAnchor.constraint(equalTo: containerCustomtextFieldView.centerXAnchor).isActive = true
+        amountTextField.centerYAnchor.constraint(equalTo: containerCustomtextFieldView.centerYAnchor).isActive = true
         
         textFieldLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         textFieldLine.widthAnchor.constraint(equalTo: amountTextField.widthAnchor).isActive = true
         textFieldLine.rightAnchor.constraint(equalTo: amountTextField.rightAnchor).isActive = true
         textFieldLine.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true
         
-        var frame = actionsView.frame
+        frame = actionsView.frame
         frame.origin.y = view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
         frame.origin.x = 0
         frame.size.width = view.frame.size.width
@@ -100,12 +113,9 @@ extension MainVC {
             
             self.keyBoardHeight = (kbFrame?.height)!
             self.actionViewHeight = 140
-            
             DispatchQueue.main.async {
                 self.view.setNeedsLayout()
             }
-            
-            
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDuration(0.3)
             UIView.setAnimationBeginsFromCurrentState(true)

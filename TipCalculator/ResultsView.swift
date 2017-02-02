@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TipView: UIView {
+class ResultsView: UIView {
     
     let textSizeBig: CGFloat = 25.0
     let textSizeSmall: CGFloat = 20.0

@@ -46,6 +46,19 @@ extension UIColor {
     }
 }
 
+extension UILabel {
+    
+    static func withText(_ text:String, andFontSize size:CGFloat) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = Constants.APPColor.textColor
+        label.font  = UIFont.systemFont(ofSize: size)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+}
+
 
 
 

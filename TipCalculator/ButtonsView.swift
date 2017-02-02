@@ -8,13 +8,20 @@
 
 import UIKit
 
-protocol ButtonsContainerViewDelegate {
+protocol ButtonsViewDelegate {
     func updateTipPercentage(_ tipPercentage: Double)
 }
 
-class ButtonsContainerView: UIView {
+enum PercentageTip: String {
+    case tenPercent = "10"
+    case fifteenPercent = "15"
+    case twentyPercent = "20"
+}
+
+
+class ButtonsView: UIView {
     
-    var delegate: ButtonsContainerViewDelegate! = nil
+    var delegate: ButtonsViewDelegate! = nil
     var isSelected: Bool = false
     
     let gradientView: UIView = {
@@ -24,7 +31,7 @@ class ButtonsContainerView: UIView {
     
     lazy var tenButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("10", for: .normal)
+        button.setTitle(PercentageTip.tenPercent.rawValue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 0.3
@@ -35,7 +42,7 @@ class ButtonsContainerView: UIView {
     lazy var fifteenButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("15", for: .normal)
+        button.setTitle(PercentageTip.fifteenPercent.rawValue, for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 0.3
         button.addTarget(self, action: #selector(updateTipPercentage(_:)), for: .touchUpInside)
@@ -45,7 +52,7 @@ class ButtonsContainerView: UIView {
     
     lazy var twentyButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("20", for: .normal)
+        button.setTitle(PercentageTip.twentyPercent.rawValue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 0.3
@@ -60,20 +67,6 @@ class ButtonsContainerView: UIView {
         addSubview(fifteenButton)
         addSubview(tenButton)
         addSubview(twentyButton)
-    }
-    
-    func updateTipPercentage(_ sender: UIButton) {
-        
-        tenButton.backgroundColor = .clear
-        fifteenButton.backgroundColor = .clear
-        twentyButton.backgroundColor = .clear
-        sender.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-
-        if let titleButton  = sender.titleLabel?.text {
-            if let percentage = Double(titleButton) {
-                delegate.updateTipPercentage(percentage)
-            }
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,6 +97,23 @@ class ButtonsContainerView: UIView {
     }
 }
 
+extension ButtonsView {
+    
+    func updateTipPercentage(_ sender: UIButton) {
+        
+        tenButton.backgroundColor = .clear
+        fifteenButton.backgroundColor = .clear
+        twentyButton.backgroundColor = .clear
+        sender.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        
+        if let titleButton  = sender.titleLabel?.text {
+            if let percentage = Double(titleButton) {
+                delegate.updateTipPercentage(percentage)
+            }
+        }
+    }
+    
+}
 
 
 

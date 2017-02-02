@@ -10,20 +10,25 @@ import UIKit
 
 class ActionsView: UIView {
     
-    let buttonsContainerView: ButtonsContainerView = {
-        let view = ButtonsContainerView()
+    var percentage: Double = 10
+    var amount: String = ""
+    
+    let buttonsView: ButtonsView = {
+        let view = ButtonsView()
         return view
     }()
     
-    let tipView: TipView = {
-       let view = TipView()
-    return view
+    let resultView: ResultsView = {
+        let view = ResultsView()
+        return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(buttonsContainerView)
-        addSubview(tipView)
+        buttonsView.delegate = self
+        resultView.updateValuesWith(self.amount, percentage: percentage)
+        addSubview(buttonsView)
+        addSubview(resultView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,18 +38,31 @@ class ActionsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let buttonContainerHeight: CGFloat = 40.0
-        buttonsContainerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        buttonsContainerView.heightAnchor.constraint(equalToConstant: buttonContainerHeight).isActive = true
-        buttonsContainerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        buttonsContainerView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        let buttonsViewHeight: CGFloat = Constants.UI.buttonsViewHeight
+        buttonsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        buttonsView.heightAnchor.constraint(equalToConstant: buttonsViewHeight).isActive = true
+        buttonsView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        buttonsView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         
-        let tipContainerHeight: CGFloat = 100.0
-        tipView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        tipView.widthAnchor.constraint(equalTo: buttonsContainerView.widthAnchor).isActive = true
-        tipView.heightAnchor.constraint(equalToConstant: tipContainerHeight).isActive = true
-        tipView.topAnchor.constraint(equalTo: buttonsContainerView.bottomAnchor).isActive = true
+        let resultsViewHeight: CGFloat = Constants.UI.resultsViewHeight
+        resultView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        resultView.widthAnchor.constraint(equalTo: buttonsView.widthAnchor).isActive = true
+        resultView.heightAnchor.constraint(equalToConstant: resultsViewHeight).isActive = true
+        resultView.topAnchor.constraint(equalTo: buttonsView.bottomAnchor).isActive = true
+    }
+    
+    func setTipViewValuesWith(_ amount:String) {
+        self.amount = amount
+        resultView.updateValuesWith(self.amount, percentage: percentage)
+    }
+    
+}
 
+extension ActionsView: ButtonsViewDelegate {
+    
+    func updateTipPercentage(_ tipPercentage: Double) {
+        percentage = tipPercentage
+        resultView.updateValuesWith(self.amount, percentage: percentage)
     }
 }
 

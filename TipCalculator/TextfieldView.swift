@@ -66,7 +66,7 @@ class TextfieldContainerview: UIView {
         
         let gradient = CAGradientLayer()
         gradient.frame = textFieldLine.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.lightBlue).cgColor]
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
         textFieldLine.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)

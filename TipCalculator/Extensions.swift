@@ -10,12 +10,12 @@ import UIKit
 
 extension UIView {
     
-    func createViewGradientwithFrame(_ frame: CGRect, inView view: UIView, topColor: String, bottomColor: String, vertical: Bool) {
+    func createViewGradientwithFrame(_ frame: CGRect, inView view: UIView, vertical: Bool) {
         
         self.frame = frame
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(topColor).cgColor, UIColor.hexStringToUIColor(bottomColor).cgColor]
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
         self.layer.insertSublayer(gradient, at: 0)
         if vertical {
             gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
@@ -69,10 +69,14 @@ extension UIButton {
         let button = UIButton(type: .custom)
         button.setTitle(text, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 0.3
         button.addTarget(target, action: selector, for: .touchUpInside)
         return button
+    }
+}
+
+extension String {
+    var length: Int {
+        return self.characters.count
     }
 }
 

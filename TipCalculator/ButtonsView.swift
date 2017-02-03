@@ -35,22 +35,35 @@ class ButtonsView: UIView {
         UIButton.withTitleText(PercentageTip.twentyPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
+    let verticalLine : UIView = {
+       let vL = UIView()
+        vL.backgroundColor = Constants.APPColor.verticalLine
+        vL.translatesAutoresizingMaskIntoConstraints = false
+        return vL
+    }()
+    
+    let verticalLineRight : UIView = {
+        let vL = UIView()
+        vL.backgroundColor = Constants.APPColor.verticalLine
+        vL.translatesAutoresizingMaskIntoConstraints = false
+        return vL
+    }()
+    
+    let gv = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurEffectView.frame = self.bounds
-//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        addSubview(blurEffectView)
-        
         tenButton.backgroundColor = .clear
         fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        addSubview(gv)
         addSubview(fifteenButton)
         addSubview(tenButton)
         addSubview(twentyButton)
+        addSubview(verticalLine)
+        addSubview(verticalLineRight)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,6 +75,7 @@ class ButtonsView: UIView {
         
         let buttonWidthMultiplier: CGFloat = 1/3
         
+        gv.frame = self.frame
         fifteenButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         fifteenButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         fifteenButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: buttonWidthMultiplier).isActive = true
@@ -77,14 +91,24 @@ class ButtonsView: UIView {
         twentyButton.heightAnchor.constraint(equalTo: fifteenButton.heightAnchor).isActive = true
         twentyButton.leftAnchor.constraint(equalTo: fifteenButton.rightAnchor).isActive = true
         
-        addGradient()
+        verticalLine.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
+        verticalLine.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        verticalLine.leftAnchor.constraint(equalTo: tenButton.rightAnchor).isActive = true
+        verticalLine.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        verticalLineRight.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
+        verticalLineRight.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        verticalLineRight.leftAnchor.constraint(equalTo: fifteenButton.rightAnchor).isActive = true
+        verticalLineRight.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
+       addGradient()
     }
     
     func addGradient() {
         
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.lightBlue).cgColor]
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
         self.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -106,7 +130,6 @@ extension ButtonsView {
             }
         }
     }
-    
 }
 
 

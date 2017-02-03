@@ -17,6 +17,7 @@
 		7BFDAB901E43DFDD001C5844 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB8F1E43DFDD001C5844 /* ButtonsView.swift */; };
 		7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB911E43DFE3001C5844 /* ResultsView.swift */; };
 		7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */; };
+		7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB981E445AD9001C5844 /* LaunchVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7BFDAB8F1E43DFDD001C5844 /* ButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		7BFDAB911E43DFE3001C5844 /* ResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldView.swift; sourceTree = "<group>"; };
+		7BFDAB981E445AD9001C5844 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				7B36DB091E4268D000EEB1C7 /* MainVC.swift */,
+				7BFDAB981E445AD9001C5844 /* LaunchVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */,
 				7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */,
 				7B749D411E4277A300ADB41B /* Extensions.swift in Sources */,
+				7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */,
 				7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */,
 				7B36DB081E4268D000EEB1C7 /* AppDelegate.swift in Sources */,
 				7B749D431E4277BF00ADB41B /* Constants.swift in Sources */,

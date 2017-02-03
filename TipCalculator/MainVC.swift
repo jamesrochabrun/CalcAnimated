@@ -15,12 +15,6 @@ class MainVC: UIViewController {
     let keyBoardNotification: String = "Knotification"
     let actionViewHeightDefault: CGFloat = Constants.UI.buttonsViewHeight + Constants.UI.resultsViewHeight
     
-    lazy var gradientView: UIView = {
-        let gv = UIView()
-        gv.createViewGradientwithFrame(self.view.frame, inView: self.view, topColor: Constants.APPColor.purple, bottomColor: Constants.APPColor.lightBlue, vertical: false)
-        return gv
-    }()
-    
     lazy var actionsView: ActionsView = {
         let aV = ActionsView()
         return aV
@@ -33,7 +27,6 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.addSubview(gradientView)
         self.title = "tip calculator"
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -89,6 +82,7 @@ extension MainVC {
             
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3, animations: {
+
                     let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
                     self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
                     let containerOriginY = (actionsViewOriginY - self.textfieldContainerView.frame.height) / 2
@@ -105,6 +99,7 @@ extension MainVC {
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
+                
                 let actionsViewOriginY = self.view.frame.maxY
                 self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
                 let containerOriginY = (self.view.frame.height - self.textfieldContainerView.frame.height) / 2

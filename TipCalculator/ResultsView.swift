@@ -15,7 +15,7 @@ class ResultsView: UIView {
     }()
     
     let tipValueLabel: UILabel  = {
-        UILabel.withText("$00.00", andFontSize: Constants.UI.textSizeSmall)
+        UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeSmall)
     }()
     
     let totalLabel: UILabel  = {
@@ -23,7 +23,7 @@ class ResultsView: UIView {
     }()
     
     let totalValueLabel: UILabel  = {
-        UILabel.withText("$00.00", andFontSize: Constants.UI.textSizeMedium)
+        UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeMedium)
     }()
       
     override init(frame: CGRect) {
@@ -83,8 +83,8 @@ class ResultsView: UIView {
         let bill = Double(amount) ?? 0
         let tip = bill * percentage / 100
         let total = bill + tip
-        tipValueLabel.text = String(format: "$%.2f", tip)
-        totalValueLabel.text = String(format: "$%.2f", total)
+        tipValueLabel.text = String(format: "$ %.2f", tip)
+        totalValueLabel.text = String(format: "$ %.2f", total)
     }
     
     

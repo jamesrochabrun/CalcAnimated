@@ -4,7 +4,7 @@
 //
 //  Created by James Rochabrun on 2/1/17.
 //  Copyright © 2017 James Rochabrun. All rights reserved.
-//
+
 
 import UIKit
 
@@ -34,6 +34,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.addSubview(gradientView)
+        self.title = "tip calculator"
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -78,13 +79,7 @@ extension MainVC: TextfieldContainerviewDelegate {
 //MARK://Keyboard actions
 
 extension MainVC {
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
-    
+
     func keyBoardWillShow(notification: Notification) {
         
         if  let dictionary = notification.userInfo, let kbFrame = dictionary[UIKeyboardFrameEndUserInfoKey] as? CGRect  {
@@ -92,17 +87,14 @@ extension MainVC {
             self.keyBoardHeight = kbFrame.height
             self.actionViewHeight = actionViewHeightDefault
             
-            UIView.animate(withDuration: 0.3, animations: {
-                let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
-                self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
-                let containerOriginY = (actionsViewOriginY - self.textfieldContainerView.frame.height) / 2
-                self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
-            })
-            
-            UIView.animate(withDuration: 3.0, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.3, options: [], animations:{
-                
-                
-            }, completion: nil)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
+                    self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
+                    let containerOriginY = (actionsViewOriginY - self.textfieldContainerView.frame.height) / 2
+                    self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+                })
+            }
         }
     }
     
@@ -111,17 +103,14 @@ extension MainVC {
         self.keyBoardHeight = 0.0
         self.actionViewHeight = 0.0
         
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            let actionsViewOriginY = self.view.frame.maxY
-            self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
-            let containerOriginY = (self.view.frame.height - self.textfieldContainerView.frame.height) / 2
-            self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
-        })
-        
-        UIView.animate(withDuration: 3.0, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.3, options: [], animations:{
-            
-        }, completion: nil)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3, animations: {
+                let actionsViewOriginY = self.view.frame.maxY
+                self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
+                let containerOriginY = (self.view.frame.height - self.textfieldContainerView.frame.height) / 2
+                self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+            })
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

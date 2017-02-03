@@ -21,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: MainVC())
         
-        UINavigationBar.appearance().barTintColor = UIColor.white//UIColor.hexStringToUIColor("#2b2b2b")//UIColor.hexStringToUIColor(Constants.APPColor.purple)
-        UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().barTintColor = .white
+    
+        UINavigationBar.appearance().tintColor = UIColor.hexStringToUIColor(Constants.APPColor.lightBlue)
+  
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: Constants.Font.appMainFont, size: Constants.UI.textSizeSmall)!, NSForegroundColorAttributeName : UIColor.hexStringToUIColor(Constants.APPColor.purple)]
        // UIApplication.shared.statusBarStyle = .lightContent
 
     

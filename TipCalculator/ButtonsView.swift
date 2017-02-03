@@ -23,6 +23,17 @@ class ButtonsView: UIView {
     
     var delegate: ButtonsViewDelegate! = nil
     
+    let gradient:CAGradientLayer = CAGradientLayer()
+
+    var color: GradientColor? {
+        didSet {
+            print("BUTTONS:\(color?.primary)")
+            if let color = self.color {
+                gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
+            }
+        }
+    }
+    
     lazy var tenButton: UIButton = {
         UIButton.withTitleText(PercentageTip.tenPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
@@ -49,7 +60,6 @@ class ButtonsView: UIView {
         return vL
     }()
     
-    let gv = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,7 +68,6 @@ class ButtonsView: UIView {
         tenButton.backgroundColor = .clear
         fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        addSubview(gv)
         addSubview(fifteenButton)
         addSubview(tenButton)
         addSubview(twentyButton)
@@ -75,7 +84,6 @@ class ButtonsView: UIView {
         
         let buttonWidthMultiplier: CGFloat = 1/3
         
-        gv.frame = self.frame
         fifteenButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         fifteenButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         fifteenButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: buttonWidthMultiplier).isActive = true
@@ -106,9 +114,7 @@ class ButtonsView: UIView {
     
     func addGradient() {
         
-        let gradient = CAGradientLayer()
         gradient.frame = self.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
         self.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)

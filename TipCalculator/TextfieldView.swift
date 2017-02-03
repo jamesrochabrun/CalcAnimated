@@ -16,6 +16,16 @@ class TextfieldContainerview: UIView {
     
     var delegate: TextfieldContainerviewDelegate! = nil
     
+    let gradient:CAGradientLayer = CAGradientLayer()
+    var color: GradientColor? {
+        didSet {
+            print("TEXTFIELD:\(color?.primary)")
+            if let color = self.color {
+                gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
+            }
+        }
+    }
+    
     lazy var amountTextField: UITextField  = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +46,6 @@ class TextfieldContainerview: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
 
         addSubview(amountTextField)
         addSubview(textFieldLine)
@@ -64,9 +73,7 @@ class TextfieldContainerview: UIView {
     
     func addGradient() {
         
-        let gradient = CAGradientLayer()
         gradient.frame = textFieldLine.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
         textFieldLine.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)

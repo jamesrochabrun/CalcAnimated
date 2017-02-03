@@ -13,24 +13,31 @@ class ResultsView: UIView {
     let tipLabel: UILabel  = {
         UILabel.withText("+", andFontSize: Constants.UI.textSizeSmall)
     }()
-    
     let tipValueLabel: UILabel  = {
         UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeMedium)
     }()
-    
     let totalLabel: UILabel  = {
         UILabel.withText("=", andFontSize: Constants.UI.textSizeMedium)
     }()
-    
     let totalValueLabel: UILabel  = {
         UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeBig)
     }()
-      
+    
+    let gradient:CAGradientLayer = CAGradientLayer()
+    var color: GradientColor? {
+        didSet {
+            print("results:\(color?.primary)")
+            if let color = self.color {
+                gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -49,8 +56,6 @@ class ResultsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        //addGradient()
-        
         tipLabel.sizeToFit()
         tipLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
         tipLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.UI.verticalPadding).isActive = true
@@ -66,19 +71,22 @@ class ResultsView: UIView {
         totalValueLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
         totalValueLabel.topAnchor.constraint(equalTo: totalLabel.topAnchor).isActive = true
         totalValueLabel.leftAnchor.constraint(equalTo: totalLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
+        
         addGradient()
-
     }
     
     func addGradient() {
         
-        let gradient = CAGradientLayer()
         gradient.frame = self.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
-        self.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        self.layer.insertSublayer(gradient, at: 0)
     }
+    
+    func changeGradientColorsWith(primary: String, secondary: String) {
+        gradient.colors = [UIColor.hexStringToUIColor(primary).cgColor, UIColor.hexStringToUIColor(secondary).cgColor]
+    }
+    
     
     func updateValuesWith(_ amount:String, percentage:Double) {
         

@@ -15,22 +15,29 @@ class MainVC: UIViewController {
     let keyBoardNotification: String = "Knotification"
     let actionViewHeightDefault: CGFloat = Constants.UI.buttonsViewHeight + Constants.UI.resultsViewHeight
     
-    lazy var actionsView: ActionsView = {
-        let aV = ActionsView()
-        return aV
+    var color: GradientColor = {
+        let c = GradientColor(primary: "#ff6501", secondary: "#ff6501")
+        return c
     }()
     
-    let textfieldContainerView: TextfieldContainerview = {
+    lazy var textfieldContainerView: TextfieldContainerview = {
         let view = TextfieldContainerview()
+        view.color = self.color
         return view
+    }()
+    
+    lazy var actionsView: ActionsView = {
+        let aV = ActionsView()
+        aV.color = self.color
+        return aV
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "tip calculator"
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change color", style: .plain, target: self, action: #selector(showColorVC))
+        
+        self.title = "tip calculator"
         
         view.backgroundColor = UIColor.white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
@@ -56,6 +63,13 @@ class MainVC: UIViewController {
         actionsView.frame = frame
     }
     
+    func showColorVC() {
+        
+        let colorsVC = ColorsVC(collectionViewLayout: UICollectionViewFlowLayout())
+        let navVC = UINavigationController.init(rootViewController: colorsVC)
+        present(navVC, animated: true, completion: nil)
+    }
+    
     func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -72,6 +86,27 @@ extension MainVC: TextfieldContainerviewDelegate {
 //MARK://Keyboard actions
 
 extension MainVC {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeColors(_:)), name: NSNotification.Name.myNotification, object: nil)
+    }
+    
+    func changeColors(_ notification: NSNotification) {
+        
+        let color = notification.object as? GradientColor
+        print("NOTIF: \(color?.primary)")
+        
+        
+        self.color.primary = (color?.primary)!
+        self.color.secondary = (color?.secondary)!
+        actionsView.color = self.color
+        textfieldContainerView.color = self.color
+        
+    }
 
     func keyBoardWillShow(notification: Notification) {
         

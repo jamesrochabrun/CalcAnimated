@@ -19,12 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController:  LaunchVC())
+        
+        let mainVC = MainVC()
+       // let navVC = UINavigationController.init(rootViewController: mainVC)
+        
+        window?.rootViewController = UINavigationController(rootViewController: mainVC)
+        
         
         UINavigationBar.appearance().barTintColor = .white
-    
         UINavigationBar.appearance().tintColor = UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0])
-  
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: Constants.Font.appMainFont, size: Constants.UI.textSizeSmall)!, NSForegroundColorAttributeName : UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0])]
        // UIApplication.shared.statusBarStyle = .lightContent
         return true

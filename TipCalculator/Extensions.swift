@@ -81,6 +81,12 @@ extension String {
 }
 
 
+extension Notification.Name {
+    static let myNotification = Notification.Name("myNotification")
+}
+
+
+
 
 
 

@@ -13,12 +13,20 @@ class ActionsView: UIView {
     var percentage: Double = 10
     var amount: String = ""
     
-    let buttonsView: ButtonsView = {
+    var color: GradientColor? {
+        didSet {
+            print("ACTIONS:\(color?.primary)")
+            self.buttonsView.color = color
+            self.resultView.color = color
+        }
+    }
+    
+    lazy var buttonsView: ButtonsView = {
         let view = ButtonsView()
         return view
     }()
     
-    let resultView: ResultsView = {
+    lazy var resultView: ResultsView = {
         let view = ResultsView()
         return view
     }()

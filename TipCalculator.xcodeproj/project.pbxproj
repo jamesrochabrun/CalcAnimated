@@ -18,6 +18,8 @@
 		7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB911E43DFE3001C5844 /* ResultsView.swift */; };
 		7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */; };
 		7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB981E445AD9001C5844 /* LaunchVC.swift */; };
+		7BFDABB91E44EE59001C5844 /* ColorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDABB81E44EE59001C5844 /* ColorsVC.swift */; };
+		7BFDABBF1E44FBDA001C5844 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		7BFDAB911E43DFE3001C5844 /* ResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldView.swift; sourceTree = "<group>"; };
 		7BFDAB981E445AD9001C5844 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
+		7BFDABB81E44EE59001C5844 /* ColorsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsVC.swift; sourceTree = "<group>"; };
+		7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */,
+				7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */,
 				7BFDAB971E43E526001C5844 /* Helpers */,
 				7BFDAB961E43E50B001C5844 /* Views */,
 				7BFDAB951E43E502001C5844 /* Controllers */,
@@ -80,6 +85,7 @@
 		7BFDAB951E43E502001C5844 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7BFDABB81E44EE59001C5844 /* ColorsVC.swift */,
 				7B36DB091E4268D000EEB1C7 /* MainVC.swift */,
 				7BFDAB981E445AD9001C5844 /* LaunchVC.swift */,
 			);
@@ -180,8 +186,10 @@
 			files = (
 				7BFDAB901E43DFDD001C5844 /* ButtonsView.swift in Sources */,
 				7B749D451E4289C800ADB41B /* ActionsView.swift in Sources */,
+				7BFDABBF1E44FBDA001C5844 /* GradientColor.swift in Sources */,
 				7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */,
 				7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */,
+				7BFDABB91E44EE59001C5844 /* ColorsVC.swift in Sources */,
 				7B749D411E4277A300ADB41B /* Extensions.swift in Sources */,
 				7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */,
 				7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */,

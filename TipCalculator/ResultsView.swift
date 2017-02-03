@@ -10,49 +10,32 @@ import UIKit
 
 class ResultsView: UIView {
     
-    let textSizeBig: CGFloat = 25.0
-    let textSizeSmall: CGFloat = 20.0
-    let textColor: UIColor = .lightGray
-    
-    lazy var tipLabel: UILabel  = {
-        let label = UILabel()
-        label.text = "Tip"
-        label.textColor = self.textColor
-        label.font  = UIFont.systemFont(ofSize: self.textSizeSmall)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let tipLabel: UILabel  = {
+        UILabel.withText("+", andFontSize: Constants.UI.textSizeSmall)
     }()
     
-    lazy var tipValueLabel: UILabel  = {
-        let label = UILabel()
-        label.text = "$00.00"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = self.textColor
-        label.font  = UIFont.systemFont(ofSize: self.textSizeSmall)
-        return label
+    let tipValueLabel: UILabel  = {
+        UILabel.withText("$00.00", andFontSize: Constants.UI.textSizeSmall)
     }()
     
-    lazy var totalLabel: UILabel  = {
-        let label = UILabel()
-        label.text = "Total"
-        label.textColor = self.textColor
-        label.font  = UIFont.systemFont(ofSize: self.textSizeBig)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let totalLabel: UILabel  = {
+        UILabel.withText("=", andFontSize: Constants.UI.textSizeMedium)
     }()
     
-    lazy var totalValueLabel: UILabel  = {
-        let label = UILabel()
-        label.text = "$00.00"
-        label.textColor = self.textColor
-        label.font  = UIFont.systemFont(ofSize: self.textSizeBig)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let totalValueLabel: UILabel  = {
+        UILabel.withText("$00.00", andFontSize: Constants.UI.textSizeMedium)
     }()
-    
+      
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(blurEffectView)
+
         addSubview(tipLabel)
         addSubview(tipValueLabel)
         addSubview(totalLabel)
@@ -66,25 +49,33 @@ class ResultsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        tipValueLabel.sizeToFit()
-        tipValueLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-        tipValueLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
-//        tipValueLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        tipValueLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        addGradient()
         
         tipLabel.sizeToFit()
-        tipLabel.rightAnchor.constraint(equalTo: tipValueLabel.leftAnchor, constant: -8).isActive = true
-        tipLabel.topAnchor.constraint(equalTo: tipValueLabel.topAnchor).isActive = true
+        tipLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
+        tipLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
         
-        totalValueLabel.sizeToFit()
-        totalValueLabel.rightAnchor.constraint(equalTo: tipValueLabel.rightAnchor).isActive = true
-        totalValueLabel.topAnchor.constraint(equalTo: tipLabel.bottomAnchor, constant: 18).isActive = true
-//        totalValueLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        totalValueLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        tipValueLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
+        tipValueLabel.topAnchor.constraint(equalTo: tipLabel.topAnchor).isActive = true
+        tipValueLabel.leftAnchor.constraint(equalTo: tipLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
         
         totalLabel.sizeToFit()
-        totalLabel.rightAnchor.constraint(equalTo: totalValueLabel.leftAnchor, constant: -8).isActive = true
-        totalLabel.topAnchor.constraint(equalTo: totalValueLabel.topAnchor).isActive = true
+        totalLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
+        totalLabel.topAnchor.constraint(equalTo: tipValueLabel.bottomAnchor, constant: 18).isActive = true
+        
+        totalValueLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
+        totalValueLabel.topAnchor.constraint(equalTo: totalLabel.topAnchor).isActive = true
+        totalValueLabel.leftAnchor.constraint(equalTo: totalLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
+    }
+    
+    func addGradient() {
+
+        let gradient = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.lightBlue).cgColor]
+        self.layer.insertSublayer(gradient, at: 0)
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
     }
     
     func updateValuesWith(_ amount:String, percentage:Double) {

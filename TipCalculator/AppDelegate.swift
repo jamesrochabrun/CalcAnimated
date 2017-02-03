@@ -21,10 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: MainVC())
         
-        UINavigationBar.appearance().barTintColor = UIColor.white //hexStringToUIColor(Constants.APPColor.lightBlue)
+        UINavigationBar.appearance().barTintColor = UIColor.white//UIColor.hexStringToUIColor("#2b2b2b")//UIColor.hexStringToUIColor(Constants.APPColor.purple)
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        UIApplication.shared.statusBarStyle = .lightContent
+       // UIApplication.shared.statusBarStyle = .lightContent
 
     
         return true

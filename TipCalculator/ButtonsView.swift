@@ -22,48 +22,32 @@ enum PercentageTip: String {
 class ButtonsView: UIView {
     
     var delegate: ButtonsViewDelegate! = nil
-    var isSelected: Bool = false
-    
-    let gradientView: UIView = {
-        let gv = UIView()
-        return gv
-    }()
     
     lazy var tenButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle(PercentageTip.tenPercent.rawValue, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 0.3
-        button.addTarget(self, action: #selector(updateTipPercentage(_:)), for: .touchUpInside)
-        return button
+        UIButton.withTitleText(PercentageTip.tenPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     lazy var fifteenButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(PercentageTip.fifteenPercent.rawValue, for: .normal)
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 0.3
-        button.addTarget(self, action: #selector(updateTipPercentage(_:)), for: .touchUpInside)
-
-        return button
+        UIButton.withTitleText(PercentageTip.fifteenPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     lazy var twentyButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle(PercentageTip.twentyPercent.rawValue, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 0.3
-        button.addTarget(self, action: #selector(updateTipPercentage), for: .touchUpInside)
-        return button
+        UIButton.withTitleText(PercentageTip.twentyPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(gradientView)
+        
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = self.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        addSubview(blurEffectView)
+        
+        tenButton.backgroundColor = .clear
+        fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         addSubview(fifteenButton)
         addSubview(tenButton)
         addSubview(twentyButton)
@@ -75,8 +59,6 @@ class ButtonsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        gradientView.createViewGradientwithFrame(self.frame, inView: self, topColor: Constants.APPColor.orange, bottomColor: Constants.APPColor.coral)
         
         let buttonWidthMultiplier: CGFloat = 1/3
         
@@ -94,6 +76,18 @@ class ButtonsView: UIView {
         twentyButton.widthAnchor.constraint(equalTo: fifteenButton.widthAnchor).isActive = true
         twentyButton.heightAnchor.constraint(equalTo: fifteenButton.heightAnchor).isActive = true
         twentyButton.leftAnchor.constraint(equalTo: fifteenButton.rightAnchor).isActive = true
+        
+        addGradient()
+    }
+    
+    func addGradient() {
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.purple).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.lightBlue).cgColor]
+        self.layer.insertSublayer(gradient, at: 0)
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
     }
 }
 
@@ -101,10 +95,10 @@ extension ButtonsView {
     
     func updateTipPercentage(_ sender: UIButton) {
         
-        tenButton.backgroundColor = .clear
-        fifteenButton.backgroundColor = .clear
-        twentyButton.backgroundColor = .clear
-        sender.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        tenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        sender.backgroundColor = .clear
         
         if let titleButton  = sender.titleLabel?.text {
             if let percentage = Double(titleButton) {

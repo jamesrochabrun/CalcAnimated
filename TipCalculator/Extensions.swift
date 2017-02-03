@@ -10,13 +10,17 @@ import UIKit
 
 extension UIView {
     
-    func createViewGradientwithFrame(_ frame: CGRect, inView view: UIView, topColor: String, bottomColor: String) {
+    func createViewGradientwithFrame(_ frame: CGRect, inView view: UIView, topColor: String, bottomColor: String, vertical: Bool) {
         
         self.frame = frame
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [UIColor.hexStringToUIColor(topColor).cgColor, UIColor.hexStringToUIColor(bottomColor).cgColor]
         self.layer.insertSublayer(gradient, at: 0)
+        if vertical {
+            gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        }
     }
 }
 
@@ -48,18 +52,29 @@ extension UIColor {
 
 extension UILabel {
     
-    static func withText(_ text:String, andFontSize size:CGFloat) -> UILabel {
+    static func withText(_ text: String, andFontSize size: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = text
         label.textColor = Constants.APPColor.textColor
-        label.font  = UIFont.systemFont(ofSize: size)
+        label.font = UIFont.init(name: Constants.Font.appMainFont, size: size)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
         return label
     }
-    
 }
 
-
+extension UIButton {
+    
+    static func withTitleText(_ text: String, target: Any , selector: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setTitle(text, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 0.3
+        button.addTarget(target, action: selector, for: .touchUpInside)
+        return button
+    }
+}
 
 
 

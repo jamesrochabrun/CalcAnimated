@@ -12,7 +12,9 @@ class GradientCell: UICollectionViewCell {
     
     var overlay: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.backgroundColor = UIColor.clear
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 3.0
         view.isHidden = true
         return view
     }()
@@ -22,7 +24,6 @@ class GradientCell: UICollectionViewCell {
         addSubview(overlay)
         overlay.frame = self.bounds
     }
-    
     
     func setupViewWithColor(_ color: GradientColor) {
         

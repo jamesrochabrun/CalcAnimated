@@ -27,7 +27,6 @@ class ButtonsView: UIView {
 
     var color: GradientColor? {
         didSet {
-            print("BUTTONS:\(color?.primary)")
             if let color = self.color {
                 gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
             }

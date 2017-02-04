@@ -16,7 +16,7 @@ class MainVC: UIViewController {
     let actionViewHeightDefault: CGFloat = Constants.UI.buttonsViewHeight + Constants.UI.resultsViewHeight
     
     var color: GradientColor = {
-        let c = GradientColor(primary: "#ff6501", secondary: "#ff6501")
+        let c = GradientColor(primary: "#b9339e", secondary: "#2ecad9")
         return c
     }()
     
@@ -66,14 +66,16 @@ class MainVC: UIViewController {
     func showColorVC() {
         
         let colorsVC = ColorsVC(collectionViewLayout: UICollectionViewFlowLayout())
+        colorsVC.color = self.color
         let navVC = UINavigationController.init(rootViewController: colorsVC)
-        present(navVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(navVC, animated: true, completion: nil)
+        }
     }
     
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
 }
 
 extension MainVC: TextfieldContainerviewDelegate {
@@ -95,19 +97,6 @@ extension MainVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.changeColors(_:)), name: NSNotification.Name.myNotification, object: nil)
     }
     
-    func changeColors(_ notification: NSNotification) {
-        
-        let color = notification.object as? GradientColor
-        print("NOTIF: \(color?.primary)")
-        
-        
-        self.color.primary = (color?.primary)!
-        self.color.secondary = (color?.secondary)!
-        actionsView.color = self.color
-        textfieldContainerView.color = self.color
-        
-    }
-
     func keyBoardWillShow(notification: Notification) {
         
         if  let dictionary = notification.userInfo, let kbFrame = dictionary[UIKeyboardFrameEndUserInfoKey] as? CGRect  {
@@ -143,14 +132,24 @@ extension MainVC {
         }
     }
     
+    func changeColors(_ notification: NSNotification) {
+        
+        if let color = notification.object as? GradientColor {
+            self.color.primary = (color.primary)
+            self.color.secondary = (color.secondary)
+            actionsView.color = self.color
+            textfieldContainerView.color = self.color
+        } else {
+            print("THE OBJECT IN NOTIFICATION IS NIL!: \(notification.object)")
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil);
+
     }
 }
-
-
-
 
 
 

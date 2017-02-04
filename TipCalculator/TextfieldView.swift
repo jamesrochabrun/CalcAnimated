@@ -19,7 +19,6 @@ class TextfieldContainerview: UIView {
     let gradient:CAGradientLayer = CAGradientLayer()
     var color: GradientColor? {
         didSet {
-            print("TEXTFIELD:\(color?.primary)")
             if let color = self.color {
                 gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
             }

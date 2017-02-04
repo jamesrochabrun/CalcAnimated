@@ -21,18 +21,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let mainVC = MainVC()
-       // let navVC = UINavigationController.init(rootViewController: mainVC)
-        
         window?.rootViewController = UINavigationController(rootViewController: mainVC)
-        
+        let color = GradientColor(primary: "#b9339e", secondary: "#2ecad9")
         
         UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().tintColor = UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0])
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: Constants.Font.appMainFont, size: Constants.UI.textSizeSmall)!, NSForegroundColorAttributeName : UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0])]
-       // UIApplication.shared.statusBarStyle = .lightContent
+        UINavigationBar.appearance().tintColor = UIColor.hexStringToUIColor(color.primary)
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: Constants.Font.appMainFont, size: Constants.UI.textSizeSmall)!, NSForegroundColorAttributeName : UIColor.hexStringToUIColor(color.primary)]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changeColors(_:)), name: NSNotification.Name.myNotification, object: nil)
         return true
     }
-
+    
+    func changeColors(_ notification: NSNotification) {
+        
+        if let color = notification.object as? GradientColor {
+            DispatchQueue.main.async {
+                UINavigationBar.appearance().tintColor = UIColor.hexStringToUIColor(color.primary)
+                UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: Constants.Font.appMainFont, size: Constants.UI.textSizeSmall)!, NSForegroundColorAttributeName : UIColor.hexStringToUIColor(color.primary)]
+            }
+        } else {
+            print("THE OBJECT IN NOTIFICATION IS NIL!: \(notification.object)")
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

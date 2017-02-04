@@ -15,7 +15,6 @@ class ActionsView: UIView {
     
     var color: GradientColor? {
         didSet {
-            print("ACTIONS:\(color?.primary)")
             self.buttonsView.color = color
             self.resultView.color = color
         }

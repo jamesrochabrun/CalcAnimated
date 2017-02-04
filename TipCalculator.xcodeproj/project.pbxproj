@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0B2BF91E4541E200D663C8 /* GradientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B2BF81E4541E200D663C8 /* GradientCell.swift */; };
 		7B36DB081E4268D000EEB1C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */; };
 		7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DB091E4268D000EEB1C7 /* MainVC.swift */; };
 		7B36DB0F1E4268D000EEB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B36DB0E1E4268D000EEB1C7 /* Assets.xcassets */; };
@@ -17,12 +18,12 @@
 		7BFDAB901E43DFDD001C5844 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB8F1E43DFDD001C5844 /* ButtonsView.swift */; };
 		7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB911E43DFE3001C5844 /* ResultsView.swift */; };
 		7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */; };
-		7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDAB981E445AD9001C5844 /* LaunchVC.swift */; };
 		7BFDABB91E44EE59001C5844 /* ColorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDABB81E44EE59001C5844 /* ColorsVC.swift */; };
 		7BFDABBF1E44FBDA001C5844 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B0B2BF81E4541E200D663C8 /* GradientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientCell.swift; sourceTree = "<group>"; };
 		7B36DB041E4268D000EEB1C7 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B36DB091E4268D000EEB1C7 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		7BFDAB8F1E43DFDD001C5844 /* ButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		7BFDAB911E43DFE3001C5844 /* ResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldView.swift; sourceTree = "<group>"; };
-		7BFDAB981E445AD9001C5844 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		7BFDABB81E44EE59001C5844 /* ColorsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsVC.swift; sourceTree = "<group>"; };
 		7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B0B2BFA1E45566900D663C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		7B36DAFB1E4268D000EEB1C7 = {
 			isa = PBXGroup;
 			children = (
@@ -71,10 +79,10 @@
 			isa = PBXGroup;
 			children = (
 				7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */,
-				7BFDABBE1E44FBDA001C5844 /* GradientColor.swift */,
-				7BFDAB971E43E526001C5844 /* Helpers */,
+				7B0B2BFA1E45566900D663C8 /* Model */,
 				7BFDAB961E43E50B001C5844 /* Views */,
 				7BFDAB951E43E502001C5844 /* Controllers */,
+				7BFDAB971E43E526001C5844 /* Helpers */,
 				7B36DB0E1E4268D000EEB1C7 /* Assets.xcassets */,
 				7B36DB101E4268D000EEB1C7 /* LaunchScreen.storyboard */,
 				7B36DB131E4268D000EEB1C7 /* Info.plist */,
@@ -87,7 +95,6 @@
 			children = (
 				7BFDABB81E44EE59001C5844 /* ColorsVC.swift */,
 				7B36DB091E4268D000EEB1C7 /* MainVC.swift */,
-				7BFDAB981E445AD9001C5844 /* LaunchVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -95,6 +102,7 @@
 		7BFDAB961E43E50B001C5844 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7B0B2BF81E4541E200D663C8 /* GradientCell.swift */,
 				7B749D441E4289C800ADB41B /* ActionsView.swift */,
 				7BFDAB931E43E3EC001C5844 /* TextfieldView.swift */,
 				7BFDAB8F1E43DFDD001C5844 /* ButtonsView.swift */,
@@ -191,7 +199,7 @@
 				7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */,
 				7BFDABB91E44EE59001C5844 /* ColorsVC.swift in Sources */,
 				7B749D411E4277A300ADB41B /* Extensions.swift in Sources */,
-				7BFDAB991E445AD9001C5844 /* LaunchVC.swift in Sources */,
+				7B0B2BF91E4541E200D663C8 /* GradientCell.swift in Sources */,
 				7BFDAB921E43DFE3001C5844 /* ResultsView.swift in Sources */,
 				7B36DB081E4268D000EEB1C7 /* AppDelegate.swift in Sources */,
 				7B749D431E4277BF00ADB41B /* Constants.swift in Sources */,

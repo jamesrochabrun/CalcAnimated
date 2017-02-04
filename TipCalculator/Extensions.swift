@@ -8,23 +8,6 @@
 
 import UIKit
 
-extension UIView {
-    
-    func createViewGradientwithFrame(_ frame: CGRect, inView view: UIView, vertical: Bool) {
-        
-        self.frame = frame
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = [UIColor.hexStringToUIColor(Constants.APPColor.randomColors[0]).cgColor, UIColor.hexStringToUIColor(Constants.APPColor.randomColors[1]).cgColor]
-        self.layer.insertSublayer(gradient, at: 0)
-        if vertical {
-            gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-        }
-    }
-}
-
-
 extension UIColor {
     
     static func hexStringToUIColor(_ hex:String) -> UIColor {

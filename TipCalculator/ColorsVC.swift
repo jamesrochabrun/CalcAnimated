@@ -8,31 +8,38 @@
 
 import UIKit
 
-class ColorsVC: UICollectionViewController {
 
+class ColorsVC: UICollectionViewController {
+    
     let cellID = "cellID"
+    var colors: [GradientColor] = [GradientColor]()
+    var color: GradientColor?
+    var lastSelection: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "Select a color"
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CLOSE", style: .plain, target: self, action: #selector(dismissView))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(dismissView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(changeColor))
-        collectionView?.register(WordCell.self, forCellWithReuseIdentifier: cellID)
-        collectionView?.backgroundColor = .red
+        collectionView?.register(GradientCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)
+        loadDummyColors()
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func loadDummyColors() {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! WordCell
-        return cell
+        let arrayTopColor = ["#00f0ac", "#b9339e","#ff6501", "#fc287b", "#f37682", "#fd28a4", "#f22d3f" ]
+        let arrayBottomColor =  ["#00cdef", "#2ecad9", "fe01a9", "#ff7456", "#00dcdb","#ffef8c", "#3c3a8d"]
+        
+        for n in 0..<arrayTopColor.count {
+            let primaryHex = arrayTopColor[n]
+            let secondaryHex = arrayBottomColor[n]
+            let color = GradientColor(primary: primaryHex, secondary: secondaryHex)
+            self.colors.append(color)
+        }
     }
-    
 
     func dismissView() {
         self.navigationController?.dismiss(animated: true)
@@ -40,10 +47,42 @@ class ColorsVC: UICollectionViewController {
     
     func changeColor() {
         
-        let color = GradientColor(primary: "#fc287b", secondary: "#3c3a8d")
-        NotificationCenter.default.post(name: Notification.Name.myNotification, object: color)
+        if let color = self.color {
+            NotificationCenter.default.post(name: Notification.Name.myNotification, object: color)
+        }
         dismissView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.myNotification, object: nil);
+    }
+}
+
+extension ColorsVC {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! GradientCell
+        let color = self.colors[indexPath.row]
+        cell.setupViewWithColor(color)
+
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.color = self.colors[indexPath.row]
+        let cell = collectionView.cellForItem(at: indexPath) as! GradientCell
+        cell.overlay.isHidden = false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! GradientCell
+        cell.overlay.isHidden = true
     }
 }
 
@@ -51,40 +90,13 @@ class ColorsVC: UICollectionViewController {
 extension ColorsVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 100)
+        return CGSize(width: view.frame.width, height: 120)
     }
 }
 
 
 
-class WordCell: UICollectionViewCell {
-    
-    let wordLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .white
-        return label
-    }()
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-        wordLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        wordLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        wordLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        wordLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-    }
-    
-    func setupViews() {
-        addSubview(wordLabel)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    
-}
+
+
+
+

@@ -26,7 +26,6 @@ class ResultsView: UIView {
     let gradient:CAGradientLayer = CAGradientLayer()
     var color: GradientColor? {
         didSet {
-            print("results:\(color?.primary)")
             if let color = self.color {
                 gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
             }
@@ -37,7 +36,7 @@ class ResultsView: UIView {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -81,10 +80,6 @@ class ResultsView: UIView {
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
         self.layer.insertSublayer(gradient, at: 0)
-    }
-    
-    func changeGradientColorsWith(primary: String, secondary: String) {
-        gradient.colors = [UIColor.hexStringToUIColor(primary).cgColor, UIColor.hexStringToUIColor(secondary).cgColor]
     }
     
     

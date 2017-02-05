@@ -10,6 +10,8 @@ import UIKit
 
 class GradientCell: UICollectionViewCell {
     
+    let gradient:CAGradientLayer = CAGradientLayer()
+    
     var overlay: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -27,19 +29,22 @@ class GradientCell: UICollectionViewCell {
     
     func setupViewWithColor(_ color: GradientColor) {
         
-        let gradient:CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
         
         DispatchQueue.main.async {
-            self.layer.insertSublayer(gradient, at: 0)
-            gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-            gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-            gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
+            self.layer.insertSublayer(self.gradient, at: 0)
+            self.gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+            self.gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+            self.gradient.colors = [UIColor.hexStringToUIColor((color.primary)).cgColor, UIColor.hexStringToUIColor((color.secondary)).cgColor]
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+       super.prepareForReuse()
     }
     
 }

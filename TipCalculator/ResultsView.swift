@@ -11,16 +11,40 @@ import UIKit
 class ResultsView: UIView {
     
     let tipLabel: UILabel  = {
-        UILabel.withText("+", andFontSize: Constants.UI.textSizeSmall)
+        UILabel.withText("+", andFontSize: Constants.UI.textSizeMedium)
     }()
     let tipValueLabel: UILabel  = {
-        UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeMedium)
+        UILabel.withText("$ 0.00", andFontSize: Constants.UI.textSizeMedium)
     }()
     let totalLabel: UILabel  = {
-        UILabel.withText("=", andFontSize: Constants.UI.textSizeMedium)
+        UILabel.withText("=", andFontSize: Constants.UI.textSizeBig)
     }()
     let totalValueLabel: UILabel  = {
-        UILabel.withText("$ 00.00", andFontSize: Constants.UI.textSizeBig)
+        UILabel.withText("$ 0.00", andFontSize: Constants.UI.textSizeBig)
+    }()
+    
+    let splitInTwoIconLabel: UILabel = {
+        UILabel.withText("..", andFontSize: Constants.UI.textSizeSmall)
+    }()
+    
+    let splitInTwoLabel: UILabel = {
+        UILabel.withText("$ 0.00", andFontSize: Constants.UI.textSizeSmall)
+    }()
+    
+    let splitInThreeIconLabel: UILabel = {
+        UILabel.withText("...", andFontSize: Constants.UI.textSizeSmall)
+    }()
+    
+    let splitInThreeLabel: UILabel = {
+        UILabel.withText("$ 0.00", andFontSize: Constants.UI.textSizeSmall)
+    }()
+    
+    let splitInFourIconLabel: UILabel = {
+        UILabel.withText("....", andFontSize: Constants.UI.textSizeSmall)
+    }()
+    
+    let splitInFourLabel: UILabel = {
+        UILabel.withText("$ 0.00", andFontSize: Constants.UI.textSizeSmall)
     }()
     
     let gradient:CAGradientLayer = CAGradientLayer()
@@ -46,6 +70,12 @@ class ResultsView: UIView {
         addSubview(tipValueLabel)
         addSubview(totalLabel)
         addSubview(totalValueLabel)
+        addSubview(splitInTwoIconLabel)
+        addSubview(splitInTwoLabel)
+        addSubview(splitInThreeIconLabel)
+        addSubview(splitInThreeLabel)
+        addSubview(splitInFourIconLabel)
+        addSubview(splitInFourLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,6 +101,30 @@ class ResultsView: UIView {
         totalValueLabel.topAnchor.constraint(equalTo: totalLabel.topAnchor).isActive = true
         totalValueLabel.leftAnchor.constraint(equalTo: totalLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
         
+        splitInTwoIconLabel.sizeToFit()
+        splitInTwoIconLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
+        splitInTwoIconLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: Constants.UI.verticalPadding).isActive = true
+        
+        splitInTwoLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
+        splitInTwoLabel.topAnchor.constraint(equalTo: totalValueLabel.bottomAnchor, constant: Constants.UI.verticalPadding).isActive = true
+        splitInTwoLabel.leftAnchor.constraint(equalTo: splitInTwoIconLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
+        
+        splitInThreeIconLabel.sizeToFit()
+        splitInThreeIconLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
+        splitInThreeIconLabel.topAnchor.constraint(equalTo: splitInTwoIconLabel.bottomAnchor, constant: Constants.UI.verticalPadding).isActive = true
+        
+        splitInThreeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
+        splitInThreeLabel.topAnchor.constraint(equalTo: splitInThreeIconLabel.topAnchor).isActive = true
+        splitInThreeLabel.leftAnchor.constraint(equalTo: splitInThreeIconLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
+        
+        splitInFourIconLabel.sizeToFit()
+        splitInFourIconLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.generalPadding).isActive = true
+        splitInFourIconLabel.topAnchor.constraint(equalTo: splitInThreeIconLabel.bottomAnchor, constant: Constants.UI.verticalPadding).isActive = true
+        
+        splitInFourLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.generalPadding).isActive = true
+        splitInFourLabel.topAnchor.constraint(equalTo: splitInFourIconLabel.topAnchor).isActive = true
+        splitInFourLabel.leftAnchor.constraint(equalTo: splitInThreeIconLabel.rightAnchor, constant: Constants.UI.generalPadding).isActive = true
+        
         addGradient()
     }
     
@@ -90,6 +144,14 @@ class ResultsView: UIView {
         let total = bill + tip
         tipValueLabel.text = String(format: "$ %.2f", tip)
         totalValueLabel.text = String(format: "$ %.2f", total)
+        
+        let totalDividedByTwo = total / 2.0
+        splitInTwoLabel.text = String(format: "$ %.2f", totalDividedByTwo)
+        let totalDividedBythree = total / 3.0
+        splitInThreeLabel.text = String(format: "$ %.2f", totalDividedBythree)
+        let totalDividedByFour = total / 4.0
+        splitInFourLabel.text = String(format: "$ %.2f", totalDividedByFour)
+        
     }
     
     

@@ -14,6 +14,8 @@ struct Constants {
 
         static let textColor: UIColor = .white
         static let verticalLine: UIColor = .white
+        static let defaultMainColor: String = "#fe02a5"
+        static let defaultSecondaryColor: String = "#fe6402"
 //        static let randomColors: [String] = {
 //            var array = [String]()
 //            let arrayTopColor = ["#00f0ac", "#b9339e","#ff6501", "#fc287b", "#f37682", "#fd28a4", "#f22d3f" ]
@@ -28,15 +30,16 @@ struct Constants {
     }
     
     struct UI {
-        static let textfieldViewHeight: CGFloat = 80.0
+        static let textfieldViewHeight: CGFloat = 52.0
         static let textFieldHeight: CGFloat = 50.0
         static let buttonsViewHeight: CGFloat = 40.0
-        static let resultsViewHeight: CGFloat = 120.0
-        static let textSizeBig: CGFloat = 30.0
-        static let textSizeMedium: CGFloat = 25.0
-        static let textSizeSmall: CGFloat = 20.0
+        static let resultsViewHeight: CGFloat = 190.0
+        static let textSizeInputBig: CGFloat = 28.0
+        static let textSizeBig: CGFloat = 24.0
+        static let textSizeMedium: CGFloat = 21.0
+        static let textSizeSmall: CGFloat = 18.0
         static let generalPadding: CGFloat = 10.0
-        static let verticalPadding: CGFloat = 22.0
+        static let verticalPadding: CGFloat = 12.0
     }
     
     struct Font {

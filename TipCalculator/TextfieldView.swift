@@ -29,7 +29,7 @@ class TextfieldContainerview: UIView {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = UIColor.lightGray
-        textField.font = UIFont.init(name: Constants.Font.appMainFont, size: Constants.UI.textSizeBig)
+        textField.font = UIFont.init(name: Constants.Font.appMainFont, size: Constants.UI.textSizeInputBig)
         textField.delegate = self
         textField.textAlignment = .right
         textField.placeholder = "Enter bill amount"
@@ -60,12 +60,12 @@ class TextfieldContainerview: UIView {
 
         amountTextField.heightAnchor.constraint(equalToConstant: Constants.UI.textFieldHeight).isActive = true
         amountTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85).isActive = true
+        amountTextField.topAnchor.constraint(equalTo: topAnchor).isActive = true
         amountTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        amountTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         textFieldLine.heightAnchor.constraint(equalToConstant: 2).isActive = true
         textFieldLine.widthAnchor.constraint(equalTo: amountTextField.widthAnchor).isActive = true
-        textFieldLine.rightAnchor.constraint(equalTo: amountTextField.rightAnchor).isActive = true
+        textFieldLine.centerXAnchor.constraint(equalTo: amountTextField.centerXAnchor).isActive = true
         textFieldLine.topAnchor.constraint(equalTo: amountTextField.bottomAnchor).isActive = true
         
         addGradient()

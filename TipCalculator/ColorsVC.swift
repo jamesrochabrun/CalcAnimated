@@ -30,8 +30,8 @@ class ColorsVC: UICollectionViewController {
     
     func loadDummyColors() {
         
-        let arrayTopColor = ["#00f0ac", "#b9339e", "#00c44c","#ff6501", "#fc287b", "#f37682", "#fd28a4", "#f22d3f", "#010a0f", "#053cf1"]
-        let arrayBottomColor =  ["#00cdef", "#2ecad9", "#ffff66", "fe01a9", "#ff7456", "#00dcdb","#ffef8c", "#3c3a8d", "#0099dd", "#7ff35a"]
+        let arrayTopColor = [Constants.APPColor.defaultMainColor, "#00f0ac", "#b9339e", "#ffff66","#ff6501", "#fc287b", "#ff18b9", "#f37682", "#fd28a4", "#f22d3f"]
+        let arrayBottomColor =  [Constants.APPColor.defaultSecondaryColor, "#00cdef", "#2ecad9", "#00c44c", "fe01a9", "#ff7456", "#009245", "#00dcdb","#ffef8c", "#3c3a8d"]
         
         for n in 0..<arrayTopColor.count {
             let primaryHex = arrayTopColor[n]

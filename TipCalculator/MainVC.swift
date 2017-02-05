@@ -16,7 +16,7 @@ class MainVC: UIViewController {
     let actionViewHeightDefault: CGFloat = Constants.UI.buttonsViewHeight + Constants.UI.resultsViewHeight
     
     var color: GradientColor = {
-        let c = GradientColor(primary: "#b9339e", secondary: "#2ecad9")
+        let c = GradientColor(primary: Constants.APPColor.defaultMainColor, secondary: Constants.APPColor.defaultSecondaryColor)
         return c
     }()
     
@@ -106,11 +106,11 @@ extension MainVC {
             
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3, animations: {
-
+                    self.textfieldContainerView.textFieldLine.alpha = 0
                     let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
                     self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
-                    let containerOriginY = (actionsViewOriginY - self.textfieldContainerView.frame.height) / 2
-                    self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+                    let textFieldViewOriginY = actionsViewOriginY - Constants.UI.textFieldHeight - 7
+                    self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: textFieldViewOriginY)
                 })
             }
         }
@@ -123,7 +123,7 @@ extension MainVC {
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
-                
+                self.textfieldContainerView.textFieldLine.alpha = 1
                 let actionsViewOriginY = self.view.frame.maxY
                 self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
                 let containerOriginY = (self.view.frame.height - self.textfieldContainerView.frame.height) / 2

@@ -30,9 +30,10 @@ class TextfieldContainerview: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = UIColor.lightGray
         textField.font = UIFont.init(name: Constants.Font.appMainFont, size: Constants.UI.textSizeBig)
+        textField.delegate = self
         textField.textAlignment = .right
         textField.placeholder = "Enter bill amount"
-        textField.keyboardType = UIKeyboardType.numberPad
+        textField.keyboardType = UIKeyboardType.decimalPad
         textField.addTarget(self, action: #selector(updateAmountWithtextfieldValue), for: .editingChanged)
         return textField
     }()
@@ -76,6 +77,18 @@ class TextfieldContainerview: UIView {
         textFieldLine.layer.insertSublayer(gradient, at: 0)
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+    }
+}
+
+extension TextfieldContainerview: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        var maxCounter: Bool = true
+        if let text = textField.text {
+           maxCounter = text.length + (string.length - range.length) <= 12
+        }
+        return maxCounter
     }
 }
 

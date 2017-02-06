@@ -8,13 +8,14 @@
 
 import UIKit
 
-protocol TextfieldContainerviewDelegate {
+protocol TextfieldViewDelegate {
     func updateAmountWithtextfieldValue(_ value:String)
 }
 
-class TextfieldContainerview: UIView {
+class TextfieldView: UIView {
     
-    var delegate: TextfieldContainerviewDelegate! = nil
+    var delegate: TextfieldViewDelegate! = nil
+    var mainVC: MainVC!
     
     let gradient:CAGradientLayer = CAGradientLayer()
     var color: GradientColor? {
@@ -78,9 +79,18 @@ class TextfieldContainerview: UIView {
         gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
     }
+    
+    func hideTextLine(_ hide: Bool) {
+        
+        if hide {
+            textFieldLine.alpha = 0
+        } else {
+            textFieldLine.alpha = 1
+        }
+    }
 }
 
-extension TextfieldContainerview: UITextFieldDelegate {
+extension TextfieldView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -92,7 +102,7 @@ extension TextfieldContainerview: UITextFieldDelegate {
     }
 }
 
-extension TextfieldContainerview {
+extension TextfieldView {
     
     func updateAmountWithtextfieldValue() {
         

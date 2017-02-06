@@ -20,8 +20,8 @@ class MainVC: UIViewController {
         return c
     }()
     
-    lazy var textfieldContainerView: TextfieldContainerview = {
-        let view = TextfieldContainerview()
+    lazy var textfieldView: TextfieldView = {
+        let view = TextfieldView()
         view.color = self.color
         return view
     }()
@@ -41,19 +41,19 @@ class MainVC: UIViewController {
         
         view.backgroundColor = UIColor.white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        textfieldContainerView.delegate = self
-        view.addSubview(textfieldContainerView)
+        textfieldView.delegate = self
+        view.addSubview(textfieldView)
         view.addSubview(actionsView)
         
         self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: view.frame.maxY)
-        self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: (view.frame.size.height - Constants.UI.textfieldViewHeight) / 2)
+        self.textfieldView.transform = CGAffineTransform(translationX: 0.0, y: (view.frame.size.height - Constants.UI.textfieldViewHeight) / 2)
         
-        var frame = textfieldContainerView.frame
+        var frame = textfieldView.frame
         frame.size.width = view.frame.size.width
         frame.size.height = Constants.UI.textfieldViewHeight
         frame.origin.x = 0
         frame.origin.y = (view.frame.size.height - frame.size.height) / 2
-        textfieldContainerView.frame = frame
+        textfieldView.frame = frame
         
         frame = actionsView.frame
         frame.origin.y = view.frame.maxY
@@ -78,7 +78,7 @@ class MainVC: UIViewController {
     }
 }
 
-extension MainVC: TextfieldContainerviewDelegate {
+extension MainVC: TextfieldViewDelegate {
     
     func updateAmountWithtextfieldValue(_ value:String) {
         actionsView.setTipViewValuesWith(value)
@@ -106,11 +106,11 @@ extension MainVC {
             
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.textfieldContainerView.textFieldLine.alpha = 0
+                    self.textfieldView.hideTextLine(true)
                     let actionsViewOriginY = self.view.frame.maxY - self.keyBoardHeight - self.actionViewHeight
                     self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
                     let textFieldViewOriginY = actionsViewOriginY - Constants.UI.textFieldHeight - 7
-                    self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: textFieldViewOriginY)
+                    self.textfieldView.transform = CGAffineTransform(translationX: 0.0, y: textFieldViewOriginY)
                 })
             }
         }
@@ -123,11 +123,11 @@ extension MainVC {
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
-                self.textfieldContainerView.textFieldLine.alpha = 1
+                self.textfieldView.hideTextLine(false)
                 let actionsViewOriginY = self.view.frame.maxY
                 self.actionsView.transform = CGAffineTransform(translationX: 0.0, y: actionsViewOriginY)
-                let containerOriginY = (self.view.frame.height - self.textfieldContainerView.frame.height) / 2
-                self.textfieldContainerView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
+                let containerOriginY = (self.view.frame.height - self.textfieldView.frame.height) / 2
+                self.textfieldView.transform = CGAffineTransform(translationX: 0.0, y: containerOriginY)
             })
         }
     }
@@ -138,7 +138,7 @@ extension MainVC {
             self.color.primary = (color.primary)
             self.color.secondary = (color.secondary)
             actionsView.color = self.color
-            textfieldContainerView.color = self.color
+            textfieldView.color = self.color
         } else {
             print("THE OBJECT IN NOTIFICATION IS NIL!: \(notification.object)")
         }

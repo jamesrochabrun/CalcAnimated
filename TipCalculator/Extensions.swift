@@ -65,7 +65,8 @@ extension String {
 
 
 extension Notification.Name {
-    static let myNotification = Notification.Name("myNotification")
+    static let myNotification = Notification.Name("colorChange")
+    static let percentageNotification = Notification.Name("percentageChange")
 }
 
 

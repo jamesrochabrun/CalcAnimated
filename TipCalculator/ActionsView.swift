@@ -10,8 +10,17 @@ import UIKit
 
 class ActionsView: UIView {
     
-    var percentage: Double = 10
-    var amount: String = ""
+    var amount: String = "0"
+    
+    var percentage: Double?
+        {
+        didSet {
+            if let percentage = self.percentage {
+                self.buttonsView.percentage = percentage
+                self.resultView.percentage = percentage
+            }
+        }
+    }
     
     var color: GradientColor? {
         didSet {
@@ -25,7 +34,7 @@ class ActionsView: UIView {
         return view
     }()
     
-    lazy var resultView: ResultsView = {
+    let resultView: ResultsView = {
         let view = ResultsView()
         return view
     }()
@@ -33,7 +42,6 @@ class ActionsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         buttonsView.delegate = self
-        resultView.updateValuesWith(self.amount, percentage: percentage)
         addSubview(buttonsView)
         addSubview(resultView)
     }
@@ -60,7 +68,11 @@ class ActionsView: UIView {
     
     func setTipViewValuesWith(_ amount:String) {
         self.amount = amount
-        resultView.updateValuesWith(self.amount, percentage: percentage)
+        resultView.amount = self.amount
+        if let percentage = self.percentage {
+            resultView.percentage = percentage
+            resultView.displayResultValues()
+        }
     }
     
 }
@@ -68,10 +80,19 @@ class ActionsView: UIView {
 extension ActionsView: ButtonsViewDelegate {
     
     func updateTipPercentage(_ tipPercentage: Double) {
-        percentage = tipPercentage
-        resultView.updateValuesWith(self.amount, percentage: percentage)
+        resultView.percentage = tipPercentage
+        self.percentage = tipPercentage
+        resultView.displayResultValues()
     }
 }
+
+
+
+
+
+
+
+
 
 
 

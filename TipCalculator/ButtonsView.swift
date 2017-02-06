@@ -9,15 +9,8 @@
 import UIKit
 
 protocol ButtonsViewDelegate {
-    func updateTipPercentage(_ tipPercentage: Double)
+  func updateTipPercentage(_ tipPercentage: Double)
 }
-
-enum PercentageTip: String {
-    case tenPercent = "10"
-    case fifteenPercent = "15"
-    case twentyPercent = "20"
-}
-
 
 class ButtonsView: UIView {
     
@@ -33,16 +26,24 @@ class ButtonsView: UIView {
         }
     }
     
+    var percentage: Double? {
+        didSet {
+            if let percentage = self.percentage {
+                self.updateButtonsViewWith(percentage: percentage)
+            }
+        }
+    }
+    
     lazy var tenButton: UIButton = {
-        UIButton.withTitleText(PercentageTip.tenPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
+        UIButton.withTitleText(Constants.PercentageTip.tenPercent, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     lazy var fifteenButton: UIButton = {
-        UIButton.withTitleText(PercentageTip.fifteenPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
+        UIButton.withTitleText(Constants.PercentageTip.fifteenPercent, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     lazy var twentyButton: UIButton = {
-        UIButton.withTitleText(PercentageTip.twentyPercent.rawValue, target:self, selector: #selector(updateTipPercentage(_:)))
+        UIButton.withTitleText(Constants.PercentageTip.twentyPercent, target:self, selector: #selector(updateTipPercentage(_:)))
     }()
     
     let verticalLine : UIView = {
@@ -63,15 +64,36 @@ class ButtonsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        tenButton.backgroundColor = .clear
-        fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         addSubview(fifteenButton)
         addSubview(tenButton)
         addSubview(twentyButton)
         addSubview(verticalLine)
         addSubview(verticalLineRight)
+    }
+    
+    func updateButtonsViewWith(percentage: Double) {
+        print("hey hey : \(percentage)")
+        if let tenPercentDoubleValue = Double(Constants.PercentageTip.tenPercent), let fiftennPercentDoubleValue = Double(Constants.PercentageTip.fifteenPercent), let twentyPercentDoubleValue = Double(Constants.PercentageTip.twentyPercent) {
+            
+            switch percentage {
+            case tenPercentDoubleValue:
+                tenButton.backgroundColor = .clear
+                fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                
+            case fiftennPercentDoubleValue:
+                tenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                fifteenButton.backgroundColor = .clear
+                twentyButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                
+            case twentyPercentDoubleValue:
+                tenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                fifteenButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+                twentyButton.backgroundColor = .clear
+            default:
+                print(percentage)
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

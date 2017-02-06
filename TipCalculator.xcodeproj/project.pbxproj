@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B0B2BF91E4541E200D663C8 /* GradientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B2BF81E4541E200D663C8 /* GradientCell.swift */; };
+		7B2DBB1A1E48E098004C55B0 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2DBB191E48E098004C55B0 /* SettingsVC.swift */; };
 		7B36DB081E4268D000EEB1C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */; };
 		7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DB091E4268D000EEB1C7 /* MainVC.swift */; };
 		7B36DB0F1E4268D000EEB1C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B36DB0E1E4268D000EEB1C7 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		7B0B2BF81E4541E200D663C8 /* GradientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientCell.swift; sourceTree = "<group>"; };
+		7B2DBB191E48E098004C55B0 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7B36DB041E4268D000EEB1C7 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B36DB071E4268D000EEB1C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B36DB091E4268D000EEB1C7 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				7BFDABB81E44EE59001C5844 /* ColorsVC.swift */,
 				7B36DB091E4268D000EEB1C7 /* MainVC.swift */,
+				7B2DBB191E48E098004C55B0 /* SettingsVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				7BFDABBF1E44FBDA001C5844 /* GradientColor.swift in Sources */,
 				7BFDAB941E43E3EC001C5844 /* TextfieldView.swift in Sources */,
 				7B36DB0A1E4268D000EEB1C7 /* MainVC.swift in Sources */,
+				7B2DBB1A1E48E098004C55B0 /* SettingsVC.swift in Sources */,
 				7BFDABB91E44EE59001C5844 /* ColorsVC.swift in Sources */,
 				7B749D411E4277A300ADB41B /* Extensions.swift in Sources */,
 				7B0B2BF91E4541E200D663C8 /* GradientCell.swift in Sources */,

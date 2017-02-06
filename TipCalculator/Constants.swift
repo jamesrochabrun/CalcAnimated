@@ -50,6 +50,12 @@ struct Constants {
     struct Operation {
         static let decimalPoint = "."
     }
+    
+    struct PercentageTip {
+        static let tenPercent = "10"
+        static let fifteenPercent = "15"
+        static let twentyPercent = "20"
+    }
 }
 
 

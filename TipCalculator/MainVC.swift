@@ -20,6 +20,19 @@ class MainVC: UIViewController {
         return c
     }()
     
+    var percentage: Double? =  {
+        let userDefaults = UserDefaults.standard
+        var defaultTip = userDefaults.double(forKey: "tip")
+        if defaultTip <= 0.0 {
+            userDefaults.set(Constants.PercentageTip.tenPercent, forKey: "tip")
+            userDefaults.synchronize()
+            if let d = Double(Constants.PercentageTip.tenPercent) {
+                defaultTip = d
+            }
+        }
+        return defaultTip
+    }()
+    
     lazy var textfieldView: TextfieldView = {
         let view = TextfieldView()
         view.color = self.color
@@ -29,6 +42,7 @@ class MainVC: UIViewController {
     lazy var actionsView: ActionsView = {
         let aV = ActionsView()
         aV.color = self.color
+        aV.percentage = self.percentage
         return aV
     }()
     
@@ -36,6 +50,7 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change color", style: .plain, target: self, action: #selector(showColorVC))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsVC))
         
         self.title = "tip calculator"
         
@@ -61,13 +76,37 @@ class MainVC: UIViewController {
         frame.size.width = view.frame.size.width
         frame.size.height = actionViewHeightDefault
         actionsView.frame = frame
+        
+        setDefaultSettings()
     }
     
+    func setDefaultSettings() {
+        
+        if self.percentage! <= 0.0 {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(Constants.PercentageTip.tenPercent, forKey: "tip")
+            userDefaults.synchronize()
+            self.percentage = Double(Constants.PercentageTip.tenPercent)
+            print(":\(self.percentage)")
+        }
+    }
+
     func showColorVC() {
         
         let colorsVC = ColorsVC(collectionViewLayout: UICollectionViewFlowLayout())
         colorsVC.color = self.color
         let navVC = UINavigationController.init(rootViewController: colorsVC)
+        DispatchQueue.main.async {
+            self.present(navVC, animated: true, completion: nil)
+        }
+    }
+    
+    func showSettingsVC() {
+        
+        let settingsVC = SettingsVC()
+        settingsVC.color = self.color
+        settingsVC.percentage = self.percentage
+        let navVC = UINavigationController.init(rootViewController: settingsVC)
         DispatchQueue.main.async {
             self.present(navVC, animated: true, completion: nil)
         }
@@ -92,9 +131,12 @@ extension MainVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.changeColors(_:)), name: NSNotification.Name.myNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.changePercentage(_:)), name: NSNotification.Name.percentageNotification, object: nil)
+
     }
     
     func keyBoardWillShow(notification: Notification) {
@@ -140,8 +182,23 @@ extension MainVC {
             actionsView.color = self.color
             textfieldView.color = self.color
         } else {
-            print("THE OBJECT IN NOTIFICATION IS NIL!: \(notification.object)")
+            print("THE OBJECT IN COLOR NOTIFICATION IS NIL!: \(notification.object)")
         }
+    }
+    
+    func changePercentage(_ notification: NSNotification) {
+        
+        if let percentage = notification.object as? Double {
+            print("te: \(percentage)")
+            
+            self.percentage = percentage
+            actionsView.percentage = percentage
+            actionsView.resultView.displayResultValues()
+        } else {
+            print("THE OBJECT IN PERCENTAGE NOTIFICATION IS NIL!: \(notification.object)")
+            
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,6 +207,12 @@ extension MainVC {
 
     }
 }
+
+
+
+
+
+
 
 
 

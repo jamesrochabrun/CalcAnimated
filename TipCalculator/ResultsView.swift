@@ -56,6 +56,9 @@ class ResultsView: UIView {
         }
     }
     
+    var percentage: Double?
+    var amount: String?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -137,29 +140,20 @@ class ResultsView: UIView {
     }
     
     
-    func updateValuesWith(_ amount:String, percentage:Double) {
+    func displayResultValues() {
         
-        let bill = Double(amount) ?? 0
-        let tip = bill * percentage / 100
-        let total = bill + tip
-        tipValueLabel.text = String(format: "$ %.2f", tip)
-        totalValueLabel.text = String(format: "$ %.2f", total)
-        
-        let totalDividedByTwo = total / 2.0
-        splitInTwoLabel.text = String(format: "$ %.2f", totalDividedByTwo)
-        let totalDividedBythree = total / 3.0
-        splitInThreeLabel.text = String(format: "$ %.2f", totalDividedBythree)
-        let totalDividedByFour = total / 4.0
-        splitInFourLabel.text = String(format: "$ %.2f", totalDividedByFour)
-        
+        if let amount = self.amount , let bill = Double(amount), let percentage = self.percentage {
+            let tip = bill * percentage / 100
+            let total = bill + tip
+            tipValueLabel.text = String(format: "$ %.2f", tip)
+            totalValueLabel.text = String(format: "$ %.2f", total)
+            
+            let totalDividedByTwo = total / 2.0
+            splitInTwoLabel.text = String(format: "$ %.2f", totalDividedByTwo)
+            let totalDividedBythree = total / 3.0
+            splitInThreeLabel.text = String(format: "$ %.2f", totalDividedBythree)
+            let totalDividedByFour = total / 4.0
+            splitInFourLabel.text = String(format: "$ %.2f", totalDividedByFour)
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

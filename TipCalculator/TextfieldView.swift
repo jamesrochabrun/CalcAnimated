@@ -36,6 +36,7 @@ class TextfieldView: UIView {
         textField.placeholder = "Enter bill amount"
         textField.keyboardType = UIKeyboardType.decimalPad
         textField.addTarget(self, action: #selector(updateAmountWithtextfieldValue), for: .editingChanged)
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing
         return textField
     }()
     
@@ -94,11 +95,14 @@ extension TextfieldView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        var maxCounter: Bool = true
-        if let text = textField.text {
-           maxCounter = text.length + (string.length - range.length) <= 12
+        var result = true
+        let targetString = Constants.Operation.decimalPoint
+        if textField.text?.range(of: targetString) != nil{
+            if string == targetString  {
+                result = false
+            }
         }
-        return maxCounter
+        return result
     }
 }
 
@@ -111,9 +115,6 @@ extension TextfieldView {
         }
     }
 }
-
-
-
 
 
 

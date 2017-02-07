@@ -33,7 +33,7 @@ class TextfieldView: UIView {
         textField.font = UIFont.init(name: Constants.Font.appMainFont, size: Constants.UI.textSizeInputBig)
         textField.delegate = self
         textField.textAlignment = .right
-        textField.placeholder = "Enter bill amount"
+        textField.placeholder = "Enter bill "
         textField.keyboardType = UIKeyboardType.decimalPad
         textField.addTarget(self, action: #selector(updateAmountWithtextfieldValue), for: .editingChanged)
         textField.clearButtonMode = UITextFieldViewMode.whileEditing
@@ -59,6 +59,7 @@ class TextfieldView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+
 
         amountTextField.heightAnchor.constraint(equalToConstant: Constants.UI.textFieldHeight).isActive = true
         amountTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.85).isActive = true

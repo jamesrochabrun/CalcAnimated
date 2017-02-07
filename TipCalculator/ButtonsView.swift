@@ -72,7 +72,7 @@ class ButtonsView: UIView {
     }
     
     func updateButtonsViewWith(percentage: Double) {
-        print("hey hey : \(percentage)")
+        print("Buttons value change : \(percentage)")
         if let tenPercentDoubleValue = Double(Constants.PercentageTip.tenPercent), let fiftennPercentDoubleValue = Double(Constants.PercentageTip.fifteenPercent), let twentyPercentDoubleValue = Double(Constants.PercentageTip.twentyPercent) {
             
             switch percentage {

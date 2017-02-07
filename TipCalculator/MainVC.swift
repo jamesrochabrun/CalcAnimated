@@ -32,7 +32,7 @@ class MainVC: UIViewController {
         }
         return defaultTip
     }()
-    
+        
     lazy var textfieldView: TextfieldView = {
         let view = TextfieldView()
         view.color = self.color
@@ -46,8 +46,15 @@ class MainVC: UIViewController {
         return aV
     }()
     
+    var appereance: Bool {
+        let userDefaults = UserDefaults.standard
+        let theme: Bool = userDefaults.bool(forKey: "kAppereance")
+        return theme
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.textfieldView.amountTextField.keyboardAppearance = .light
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change color", style: .plain, target: self, action: #selector(showColorVC))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsVC))
@@ -76,21 +83,9 @@ class MainVC: UIViewController {
         frame.size.width = view.frame.size.width
         frame.size.height = actionViewHeightDefault
         actionsView.frame = frame
-        
-        setDefaultSettings()
     }
     
-    func setDefaultSettings() {
-        
-        if self.percentage! <= 0.0 {
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(Constants.PercentageTip.tenPercent, forKey: "tip")
-            userDefaults.synchronize()
-            self.percentage = Double(Constants.PercentageTip.tenPercent)
-            print(":\(self.percentage)")
-        }
-    }
-
+    
     func showColorVC() {
         
         let colorsVC = ColorsVC(collectionViewLayout: UICollectionViewFlowLayout())
@@ -106,6 +101,7 @@ class MainVC: UIViewController {
         let settingsVC = SettingsVC()
         settingsVC.color = self.color
         settingsVC.percentage = self.percentage
+        settingsVC.appereance = self.appereance
         let navVC = UINavigationController.init(rootViewController: settingsVC)
         DispatchQueue.main.async {
             self.present(navVC, animated: true, completion: nil)
@@ -130,8 +126,14 @@ extension MainVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+
+        if self.appereance {
+            textfieldView.amountTextField.keyboardAppearance = .dark
+        } else {
+            textfieldView.amountTextField.keyboardAppearance = .light
+        }
+
+        textfieldView.amountTextField.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.changeColors(_:)), name: NSNotification.Name.myNotification, object: nil)
@@ -189,16 +191,12 @@ extension MainVC {
     func changePercentage(_ notification: NSNotification) {
         
         if let percentage = notification.object as? Double {
-            print("te: \(percentage)")
-            
             self.percentage = percentage
             actionsView.percentage = percentage
             actionsView.resultView.displayResultValues()
         } else {
             print("THE OBJECT IN PERCENTAGE NOTIFICATION IS NIL!: \(notification.object)")
-            
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

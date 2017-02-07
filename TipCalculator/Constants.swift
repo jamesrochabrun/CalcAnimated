@@ -27,6 +27,7 @@ struct Constants {
         static let verticalLine: UIColor = .white
         static let defaultMainColor: String = "#fe02a5"
         static let defaultSecondaryColor: String = "#fe6402"
+        static let textColorWhiteBG: String = "#b2acab"
 
     }
     
@@ -35,7 +36,7 @@ struct Constants {
         static let textFieldHeight: CGFloat = 50.0
         static let buttonsViewHeight: CGFloat = 40.0
         static let resultsViewHeight: CGFloat = 190.0
-        static let textSizeInputBig: CGFloat = 28.0
+        static let textSizeInputBig: CGFloat = 45.0
         static let textSizeBig: CGFloat = 24.0
         static let textSizeMedium: CGFloat = 21.0
         static let textSizeSmall: CGFloat = 18.0

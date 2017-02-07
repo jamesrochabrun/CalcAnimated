@@ -154,6 +154,17 @@ class ResultsView: UIView {
             splitInThreeLabel.text = String(format: "$ %.2f", totalDividedBythree)
             let totalDividedByFour = total / 4.0
             splitInFourLabel.text = String(format: "$ %.2f", totalDividedByFour)
+        } else {
+            totalValueLabel.text = "$ 0.00"
+            tipValueLabel.text = "$ 0.00"
+            splitInTwoLabel.text = "$ 0.00"
+            splitInThreeLabel.text = "$ 0.00"
+            splitInFourLabel.text = "$ 0.00"
         }
     }
 }
+
+
+
+
+

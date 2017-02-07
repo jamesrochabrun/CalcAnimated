@@ -21,7 +21,7 @@ class ColorsVC: UICollectionViewController {
         
         self.title = "Select a gradient"
         collectionView?.backgroundColor = UIColor.hexStringToUIColor("#2f2e2d")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(dismissView))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(changeColor))
         collectionView?.register(GradientCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.setCollectionViewLayout(UICollectionViewFlowLayout(), animated: true)

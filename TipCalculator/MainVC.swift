@@ -16,7 +16,19 @@ class MainVC: UIViewController {
     let actionViewHeightDefault: CGFloat = Constants.UI.buttonsViewHeight + Constants.UI.resultsViewHeight
     
     var color: GradientColor = {
-        let c = GradientColor(primary: Constants.APPColor.defaultMainColor, secondary: Constants.APPColor.defaultSecondaryColor)
+        
+        let userDefaults = UserDefaults.standard
+        var c = GradientColor(primary:Constants.APPColor.defaultMainColor, secondary:Constants.APPColor.defaultSecondaryColor)
+        
+        if let primaryStringColor = userDefaults.string(forKey: "primary"),
+        let secondaryStringColor = userDefaults.string(forKey: "secondary") {
+            c.primary = primaryStringColor
+            c.secondary = secondaryStringColor
+        } else {
+            userDefaults.set(c.primary, forKey: "primary")
+            userDefaults.set(c.secondary, forKey: "secondary")
+            userDefaults.synchronize()
+        }
         return c
     }()
     

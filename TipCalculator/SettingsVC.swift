@@ -73,7 +73,7 @@ class SettingsVC: UIViewController, ButtonsViewDelegate {
         
         buttonsView.delegate = self
         infoLabel.textColor = UIColor.hexStringToUIColor(Constants.APPColor.textColorWhiteBG)
-        appereanceLabel.textColor = UIColor.hexStringToUIColor(Constants.APPColor.textColorWhiteBG)   
+        appereanceLabel.textColor = UIColor.hexStringToUIColor(Constants.APPColor.textColorWhiteBG)
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveSettings))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView))

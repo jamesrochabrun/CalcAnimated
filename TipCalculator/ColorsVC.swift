@@ -49,6 +49,10 @@ class ColorsVC: UICollectionViewController {
         
         if let color = self.color {
             NotificationCenter.default.post(name: Notification.Name.myNotification, object: color)
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(color.primary, forKey: "primary")
+            userDefaults.set(color.secondary, forKey: "secondary")
+            userDefaults.synchronize()
         }
         dismissView()
     }

@@ -125,7 +125,7 @@ class SettingsVC: UIViewController {
     }
 }
 
-extension SettingsVC:  ButtonsViewDelegate  {
+extension SettingsVC: ButtonsViewDelegate {
     
     func updateTipPercentage(_ tipPercentage: Double) {
         

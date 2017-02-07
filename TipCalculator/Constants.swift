@@ -28,6 +28,7 @@ struct Constants {
         static let defaultMainColor: String = "#fe02a5"
         static let defaultSecondaryColor: String = "#fe6402"
         static let textColorWhiteBG: String = "#b2acab"
+        static let backgroundDark: String = "#2f2e2d"
 
     }
     
@@ -56,6 +57,13 @@ struct Constants {
         static let tenPercent = "10"
         static let fifteenPercent = "15"
         static let twentyPercent = "20"
+    }
+    
+    struct DefaultKeys {
+        static let primaryColor = "primary"
+        static let secondaryColor = "secondary"
+        static let keyboardAppereance = "kAppereance"
+    
     }
 }
 

@@ -20,7 +20,7 @@ class ColorsVC: UICollectionViewController {
         super.viewDidLoad()
         
         self.title = "Select a gradient"
-        collectionView?.backgroundColor = UIColor.hexStringToUIColor("#2f2e2d")
+        collectionView?.backgroundColor = UIColor.hexStringToUIColor(Constants.APPColor.backgroundDark)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(changeColor))
         collectionView?.register(GradientCell.self, forCellWithReuseIdentifier: cellID)
@@ -50,8 +50,8 @@ class ColorsVC: UICollectionViewController {
         if let color = self.color {
             NotificationCenter.default.post(name: Notification.Name.myNotification, object: color)
             let userDefaults = UserDefaults.standard
-            userDefaults.set(color.primary, forKey: "primary")
-            userDefaults.set(color.secondary, forKey: "secondary")
+            userDefaults.set(color.primary, forKey: Constants.DefaultKeys.primaryColor)
+            userDefaults.set(color.secondary, forKey: Constants.DefaultKeys.secondaryColor)
             userDefaults.synchronize()
         }
         dismissView()

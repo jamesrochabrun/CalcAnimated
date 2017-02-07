@@ -85,7 +85,7 @@ class SettingsVC: UIViewController, ButtonsViewDelegate {
 
     func saveSettings() {
         let userDefaults = UserDefaults.standard
-        userDefaults.set(self.appereance, forKey: "kAppereance")
+        userDefaults.set(self.appereance, forKey: Constants.DefaultKeys.keyboardAppereance)
         userDefaults.synchronize()
         if let percentage = self.percentage {
             NotificationCenter.default.post(name: Notification.Name.percentageNotification, object: percentage)

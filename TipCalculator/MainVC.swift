@@ -20,13 +20,13 @@ class MainVC: UIViewController {
         let userDefaults = UserDefaults.standard
         var c = GradientColor(primary:Constants.APPColor.defaultMainColor, secondary:Constants.APPColor.defaultSecondaryColor)
         
-        if let primaryStringColor = userDefaults.string(forKey: "primary"),
-        let secondaryStringColor = userDefaults.string(forKey: "secondary") {
+        if let primaryStringColor = userDefaults.string(forKey: Constants.DefaultKeys.primaryColor),
+        let secondaryStringColor = userDefaults.string(forKey: Constants.DefaultKeys.secondaryColor) {
             c.primary = primaryStringColor
             c.secondary = secondaryStringColor
         } else {
-            userDefaults.set(c.primary, forKey: "primary")
-            userDefaults.set(c.secondary, forKey: "secondary")
+            userDefaults.set(c.primary, forKey: Constants.DefaultKeys.primaryColor)
+            userDefaults.set(c.secondary, forKey: Constants.DefaultKeys.secondaryColor)
             userDefaults.synchronize()
         }
         return c
@@ -60,7 +60,7 @@ class MainVC: UIViewController {
     
     var appereance: Bool {
         let userDefaults = UserDefaults.standard
-        let theme: Bool = userDefaults.bool(forKey: "kAppereance")
+        let theme: Bool = userDefaults.bool(forKey: Constants.DefaultKeys.keyboardAppereance)
         return theme
     }
     

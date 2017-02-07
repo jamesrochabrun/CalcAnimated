@@ -31,6 +31,7 @@ class ActionsView: UIView {
     
     lazy var buttonsView: ButtonsView = {
         let view = ButtonsView()
+        view.delegate = self
         return view
     }()
     
@@ -41,7 +42,6 @@ class ActionsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        buttonsView.delegate = self
         addSubview(buttonsView)
         addSubview(resultView)
     }

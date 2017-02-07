@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol TextfieldViewDelegate {
+protocol TextfieldViewDelegate: class {
     func updateAmountWithtextfieldValue(_ value:String)
 }
 
 class TextfieldView: UIView {
     
-    var delegate: TextfieldViewDelegate! = nil
+    weak var delegate: TextfieldViewDelegate?
     var mainVC: MainVC!
     
     let gradient:CAGradientLayer = CAGradientLayer()
@@ -110,9 +110,8 @@ extension TextfieldView: UITextFieldDelegate {
 extension TextfieldView {
     
     func updateAmountWithtextfieldValue() {
-        
         if let amountText = amountTextField.text {
-            delegate.updateAmountWithtextfieldValue(amountText)
+            delegate?.updateAmountWithtextfieldValue(amountText)
         }
     }
 }

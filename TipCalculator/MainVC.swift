@@ -47,6 +47,7 @@ class MainVC: UIViewController {
         
     lazy var textfieldView: TextfieldView = {
         let view = TextfieldView()
+        view.delegate = self
         view.color = self.color
         return view
     }()
@@ -75,7 +76,6 @@ class MainVC: UIViewController {
         
         view.backgroundColor = UIColor.white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        textfieldView.delegate = self
         view.addSubview(textfieldView)
         view.addSubview(actionsView)
         

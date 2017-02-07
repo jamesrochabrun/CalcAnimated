@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsVC: UIViewController, ButtonsViewDelegate {
+class SettingsVC: UIViewController {
     
     var appereance: Bool?  {
         didSet {
@@ -18,8 +18,9 @@ class SettingsVC: UIViewController, ButtonsViewDelegate {
         }
     }
 
-    let buttonsView: ButtonsView = {
+    lazy var buttonsView: ButtonsView = {
         let view = ButtonsView()
+        view.delegate = self
         return view
     }()
     
@@ -71,7 +72,6 @@ class SettingsVC: UIViewController, ButtonsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonsView.delegate = self
         infoLabel.textColor = UIColor.hexStringToUIColor(Constants.APPColor.textColorWhiteBG)
         appereanceLabel.textColor = UIColor.hexStringToUIColor(Constants.APPColor.textColorWhiteBG)
         view.backgroundColor = .white
@@ -119,17 +119,20 @@ class SettingsVC: UIViewController, ButtonsViewDelegate {
         infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.percentageNotification, object: nil);
+    }
+}
+
+extension SettingsVC:  ButtonsViewDelegate  {
+    
     func updateTipPercentage(_ tipPercentage: Double) {
         
         let userDefaults = UserDefaults.standard
         userDefaults.set(tipPercentage, forKey: "tip")
         userDefaults.synchronize()
         self.percentage = tipPercentage
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.percentageNotification, object: nil);
     }
 }
 

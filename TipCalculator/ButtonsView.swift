@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol ButtonsViewDelegate {
+protocol ButtonsViewDelegate: class {
   func updateTipPercentage(_ tipPercentage: Double)
 }
 
 class ButtonsView: UIView {
     
-    var delegate: ButtonsViewDelegate! = nil
+    weak var delegate: ButtonsViewDelegate?
     
     let gradient:CAGradientLayer = CAGradientLayer()
 
@@ -153,7 +153,7 @@ extension ButtonsView {
         
         if let titleButton  = sender.titleLabel?.text {
             if let percentage = Double(titleButton) {
-                delegate.updateTipPercentage(percentage)
+                delegate?.updateTipPercentage(percentage)
             }
         }
     }

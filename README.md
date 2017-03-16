@@ -36,7 +36,7 @@ Here's a walkthrough of implemented user stories:
 ## Notes
 Describe any challenges encountered while building the app.
 
-- The biggest chalenge on this exercise was to make a deisgn that can transform a static calculator in a better product that give a better and funnier experience to the user, but without loosing focus in the engineering aspect of the product.
+- The biggest chalenge on this exercise was to make a design that can transform a static calculator in a better product that give a better and funnier experience to the user without loosing focus in the engineering aspect of the product.
 
 ## License
 
